@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>온다 향방 (ONDA PERFUME STUDIO) | 바다가 보내온 쉼, 나만의 향기가 온다</title>
+  <meta name="description" content="포항 영일대 파도 곁에서 마주하는 온전한 나만의 향. 온다 향방(구 윤슬향방) 시그니처 원데이 조향 클래스 실시간 예약 및 온라인 프래그런스 스토어." />
+  <!-- Google Fonts: Cormorant Garamond & Noto Serif KR & Noto Sans KR -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Noto+Sans+KR:wght@300;400;500;600;700&family=Noto+Serif+KR:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+
+  <!-- Top Renewal Notice Bar -->
+  <div class="top-notice">
+    <span class="top-notice__tag">RENEWAL OPEN</span>
+    <span>‘윤슬향방’이 <strong>온다 향방 (ONDA PERFUME STUDIO)</strong>으로 새롭게 인사드립니다 · 온라인 첫 구매 시 시향 바이알 2종 증정</span>
+    <span class="top-notice__link" onclick="navigateTo('class')">실시간 클래스 예약 &rarr;</span>
+  </div>
+
+  <!-- Sticky Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <div class="brand-logo" onclick="navigateTo('home')" role="button" tabindex="0" aria-label="온다 향방 홈으로 이동">
+        <span class="brand-logo__en">ONDA</span>
+        <span class="brand-logo__kr">온다 향방 · PERFUME STUDIO</span>
+      </div>
+
+      <nav class="main-nav" id="mainNav" aria-label="주요 메뉴">
+        <button class="nav-link active" data-target="home" onclick="navigateTo('home')">HOME</button>
+        <button class="nav-link" data-target="class" onclick="navigateTo('class')">PROGRAM &amp; 예약</button>
+        <button class="nav-link" data-target="shop" onclick="navigateTo('shop')">SHOP (스토어)</button>
+        <button class="nav-link" data-target="journal" onclick="navigateTo('journal')">REVIEW &amp; 저널</button>
+        <button class="nav-link" data-target="about" onclick="navigateTo('about')">ABOUT &amp; 오시는길</button>
+      </nav>
+
+      <div class="header-actions">
+        <button class="action-btn" onclick="openReviewWriteModal()" title="클래스/스토어 리뷰 작성창 열기">
+          <span>&#9998; 리뷰 남기기</span>
+        </button>
+        <button class="action-btn" onclick="openDrawer('reservationDrawer')" title="내 예약 내역 확인">
+          <span>예약조회</span>
+          <span class="badge-count tabular-nums" id="resBadgeCount">1</span>
+        </button>
+        <button class="action-btn" onclick="openDrawer('cartDrawer')" title="장바구니 열기">
+          <span>장바구니</span>
+          <span class="badge-count tabular-nums" id="cartBadgeCount">0</span>
+        </button>
+        <button class="action-btn action-btn--primary" onclick="navigateTo('class', 'bookingWorkbench')">
+          클래스 예약
+        </button>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="모바일 메뉴 열기">
+          &#9776;
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==================================================================
+         VIEW 1: HOME (메인 페이지)
+         ================================================================== -->
+    <section class="view-section active" id="view-home">
+      <!-- Hero Section with Photorealistic Slide Transition -->
+      <div class="hero" id="ondaHero" onmouseenter="pauseHeroAutoSlide(true)" onmouseleave="pauseHeroAutoSlide(false)">
+        <!-- Full-Bleed Sliding Photorealistic Background Track -->
+        <div class="hero__bg-slider" aria-hidden="true">
+          <div class="hero__bg-track" id="heroBgTrack">
+            <div class="hero__bg-slide active">
+              <img src="./assets/images/hero_slide_1.jpg" alt="영일대 바다 윤슬과 온다 시그니처 퍼퓸 보틀 실사" />
+            </div>
+            <div class="hero__bg-slide">
+              <img src="./assets/images/hero_slide_2.jpg" alt="자연광이 스미는 온다 향방 조향 오르간과 원목 테이블 실사" />
+            </div>
+            <div class="hero__bg-slide">
+              <img src="./assets/images/hero_slide_3.jpg" alt="온다 향방 시그니처 오 드 퍼퓸 & 디퓨저 컬렉션 실사" />
+            </div>
+          </div>
+        </div>
+        <div class="hero__overlay"></div>
+        <div class="hero__shimmer"></div>
+        <!-- Subtle Crystal Sparkle & Light Refraction Canvas (과하지 않은 크리스탈 반짝임 연출) -->
+        <canvas class="hero__canvas" id="ondaWaveCanvas" aria-hidden="true"></canvas>
+
+        <div class="container hero__layout">
+          <div class="hero__content">
+            <div class="hero__badge">
+              <span class="tide-pulse-dot"></span>
+              <span>POHANG YEONGILDAE ATELIER</span>
+              <span>·</span>
+              <span id="tideStateLabel">CRYSTAL LIGHT : 햇살과 향기가 머무는 시간</span>
+            </div>
+            <h1 class="hero__title" id="heroSlideTitle">
+              바다가 보내온 쉼,<br />나만의 향기가 온다
+            </h1>
+            <p class="hero__subtitle" id="heroSlideSubtitle">
+              영일대 파도 곁에서 마주하는 온전한 나만의 향. 120여 가지 자연의 향료와 아날로그 조향 오르간 앞에서 당신의 계절을 기록하세요.
+            </p>
+            <div class="hero__cta-group">
+              <button class="btn btn--ivory" onclick="navigateTo('class', 'bookingWorkbench')">
+                클래스 예약하기 &rarr;
+              </button>
+              <button class="btn btn--outline-ivory" onclick="navigateTo('shop')">
+                향기 둘러보기
+              </button>
+              <button class="btn btn--outline-ivory" onclick="openScentFinderModal()">
+                나만의 향 찾기 (Scent Test)
+              </button>
+            </div>
+
+            <!-- Hero Mood Slide Switcher with Progress Indicators -->
+            <div class="hero__slides-nav" role="tablist" aria-label="메인 히어로 슬라이드 전환">
+              <button class="hero-slide-btn active" onclick="switchHeroSlide(0)" role="tab" aria-selected="true">
+                <strong>01. ONDA WAVE</strong>
+                <span>바다 윤슬과 크리스탈 잔향</span>
+                <span class="hero-slide-btn__bar"></span>
+              </button>
+              <button class="hero-slide-btn" onclick="switchHeroSlide(1)" role="tab" aria-selected="false">
+                <strong>02. BESPOKE CLASS</strong>
+                <span>1:1 프라이빗 조향 아틀리에</span>
+                <span class="hero-slide-btn__bar"></span>
+              </button>
+              <button class="hero-slide-btn" onclick="switchHeroSlide(2)" role="tab" aria-selected="false">
+                <strong>03. SIGNATURE SCENT</strong>
+                <span>포항의 계절을 담은 오 드 퍼퓸</span>
+                <span class="hero-slide-btn__bar"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Synchronized Photorealistic Slide Showcase Deck -->
+          <div class="hero__showcase">
+            <div class="hero-showcase-frame">
+              <div class="hero-showcase-viewport">
+                <div class="hero-showcase-track" id="heroShowcaseTrack">
+                  <!-- Slide 01 -->
+                  <div class="hero-showcase-slide">
+                    <img src="./assets/images/hero_slide_1.jpg" alt="ONDA 시그니처 보틀과 영일대 윤슬 실사" />
+                    <div class="hero-showcase-caption">
+                      <span class="hero-showcase-tag">SLIDE 01 · COASTAL EAU DE PARFUM</span>
+                      <strong>ONDA &amp; YUNSEUL 50ml</strong>
+                      <p>영일대 해변의 자연석 위, 오후의 햇살을 머금은 크리스탈 보틀</p>
+                    </div>
+                  </div>
+                  <!-- Slide 02 -->
+                  <div class="hero-showcase-slide">
+                    <img src="./assets/images/hero_slide_2.jpg" alt="온다 향방 조향 오르간과 블렌딩 테이블 실사" />
+                    <div class="hero-showcase-caption">
+                      <span class="hero-showcase-tag">SLIDE 02 · PRIVATE PERFUMERY ORGAN</span>
+                      <strong>120+ SCENT ARCHIVE CLASS</strong>
+                      <p>창가로 들어오는 자연광 아래 0.01g 단위로 완성하는 나만의 향</p>
+                    </div>
+                  </div>
+                  <!-- Slide 03 -->
+                  <div class="hero-showcase-slide">
+                    <img src="./assets/images/hero_slide_3.jpg" alt="온다 향방 시그니처 퍼퓸 & 디퓨저 컬렉션 실사" />
+                    <div class="hero-showcase-caption">
+                      <span class="hero-showcase-tag">SLIDE 03 · SIGNATURE COLLECTION</span>
+                      <strong>BESPOKE GIFT &amp; HOME FRAGRANCE</strong>
+                      <p>시향 없이도 그려지는 포항의 사계절, 무료 보틀 각인 서비스</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide Controls Bar -->
+              <div class="hero-showcase-controls">
+                <div class="hero-showcase-counter tabular-nums">
+                  <span id="heroSlideCurrentNum">01</span>
+                  <span class="hero-showcase-divider">/</span>
+                  <span>03</span>
+                  <span class="hero-showcase-status" id="heroSlideTagText">· ONDA WAVE</span>
+                </div>
+                <div class="hero-showcase-arrows">
+                  <button type="button" class="hero-arrow-btn" onclick="stepHeroSlide(-1)" aria-label="이전 슬라이드">&larr;</button>
+                  <button type="button" class="hero-arrow-btn" onclick="stepHeroSlide(1)" aria-label="다음 슬라이드">&rarr;</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Brand Story Intro -->
+      <div class="section">
+        <div class="container">
+          <div class="story-grid">
+            <div class="story-visual">
+              <div class="story-visual__main">
+                <img src="./assets/images/perfume_onda.jpg" alt="온다 향방 시그니처 오 드 퍼퓸 파도(ONDA) 50ml 실사" />
+              </div>
+              <div class="story-visual__caption">
+                <p>“파도가 해변에 닿아 윤슬로 부서지듯, 향기는 기억의 가장자리에 조용히 스며듭니다.”</p>
+                <span>— ONDA PERFUMERY NOTE</span>
+              </div>
+            </div>
+
+            <div class="story-copy">
+              <span class="eyebrow">BRAND STORY · NAMING ESSAY</span>
+              <h2 class="section-title">윤슬의 반짝임 너머,<br />당신에게로 향기가 ‘온다’</h2>
+              <blockquote class="story-copy__quote">
+                스페인어로 ‘파도(Onda)’, 그리고 일상 속 편안한 쉼이 나에게로 찾아오는 순간을 뜻합니다.
+              </blockquote>
+              <p class="story-copy__body">
+                영일대 바닷가 작은 골목에서 ‘윤슬향방’이라는 이름으로 수많은 여행자와 포항의 일상을 기록해 온 우리가 <strong>온다 향방 (ONDA PERFUME STUDIO)</strong>으로 새로운 계절을 맞이합니다.
+                창가에 부서지는 자연광과 차분한 나무 테이블 위에서, 세상에 단 하나뿐인 당신의 고유한 체온과 닮은 향기를 조향합니다.
+              </p>
+
+              <div class="meaning-pills">
+                <div class="meaning-pill">
+                  <span class="meaning-pill__en">01. Wave / Sea</span>
+                  <span class="meaning-pill__kr">스페인어 ‘파도(Onda)’, 물결과 윤슬의 흐름</span>
+                </div>
+                <div class="meaning-pill">
+                  <span class="meaning-pill__en">02. Come to Me</span>
+                  <span class="meaning-pill__kr">“나에게로 향기가 온다”, 찾아오는 쉼의 순간</span>
+                </div>
+                <div class="meaning-pill">
+                  <span class="meaning-pill__en">03. 溫 &amp; Warmth</span>
+                  <span class="meaning-pill__kr">따뜻한 온기와 다정함이 머무는 아틀리에</span>
+                </div>
+              </div>
+
+              <button class="btn btn--outline-navy" onclick="navigateTo('about')">
+                브랜드 스토리 &amp; 공간 더 보기 &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Curated Class Banner Grid -->
+      <div class="section section--ivory-warm">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <span class="eyebrow">CURATED PERFUMERY CLASS</span>
+              <h2 class="section-title">영일대 파도 곁에서 만나는 조향 클래스</h2>
+              <p class="section-desc">100% 사전 예약제로 운영되며 타임당 소수 인원으로 프라이빗하고 깊이 있는 시향을 돕습니다.</p>
+            </div>
+            <button class="btn btn--navy" onclick="navigateTo('class')">전체 커리큘럼 및 잔여석 확인 &rarr;</button>
+          </div>
+
+          <div class="class-cards-grid" id="homeClassGrid">
+            <!-- Populated by app.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Signature Collection (Shop Preview) -->
+      <div class="section">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <span class="eyebrow">SIGNATURE COLLECTION</span>
+              <h2 class="section-title">시향 없이도 그려지는 포항의 사계절</h2>
+              <p class="section-desc">온다 향방 조향사가 직접 블렌딩한 시그니처 오 드 퍼퓸과 홈 프래그런스 컬렉션입니다.</p>
+            </div>
+            <button class="btn btn--outline-navy" onclick="navigateTo('shop')">온라인 스토어 전체 보기 &rarr;</button>
+          </div>
+
+          <div class="product-grid" id="homeProductGrid">
+            <!-- Populated by app.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Review & Social Section -->
+      <div class="section section--navy">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <span class="eyebrow">REVIEWS &amp; ARCHIVE</span>
+              <h2 class="section-title">공방을 다녀간 분들의 향기 기록</h2>
+              <p class="section-desc">실제 원데이 클래스 수강생과 온라인 스토어 구매 고객님들이 남겨주신 후기입니다. (평균 만족도 ★ 4.98 / 5.0)</p>
+            </div>
+            <button class="btn btn--outline-ivory" onclick="navigateTo('journal')">전체 후기 &amp; 저널 보기 &rarr;</button>
+          </div>
+
+          <div class="review-grid" id="homeReviewGrid">
+            <!-- Populated by app.js -->
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
+            <span style="font-family:var(--font-serif-en); letter-spacing:0.12em; color:var(--color-sand);">
+              INSTAGRAM · @onda_perfume_pohang &nbsp; #온다향방 #영일대공방 #포항데이트
+            </span>
+            <a href="#visit" onclick="navigateTo('visit'); return false;" style="font-size:0.84rem; color:var(--color-ivory); text-decoration:underline;">
+              포항 영일대 공방 위치 안내 &rarr;
+            </a>
+          </div>
+          <div class="insta-strip" id="homeInstaStrip">
+            <!-- Populated by app.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         VIEW 2: ABOUT (브랜드 소개 & 공간 안내)
+         ================================================================== -->
+    <section class="view-section" id="view-about">
+      <div class="page-hero">
+        <div class="container">
+          <span class="eyebrow" style="color:var(--color-sand);">ABOUT &amp; VISIT · ONDA PERFUME STUDIO</span>
+          <h1 class="page-hero__title">브랜드 스토리 &amp; 영일대 아틀리에 안내</h1>
+          <p class="page-hero__desc">
+            구 ‘윤슬향방’에서 출발해 영일대 바다가 건네는 계절의 온도와 빛을 향기로 번역합니다. 브랜드 철학과 공방 공간, 오시는 길을 한곳에서 확인하세요.
+          </p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:24px;">
+            <button type="button" class="btn btn--ivory btn--sm" onclick="navigateTo('about')">
+              01. 브랜드 철학 &amp; 아틀리에 공간 소개
+            </button>
+            <button type="button" class="btn btn--outline-ivory btn--sm" onclick="navigateTo('visit')">
+              02. 오시는 길 · 주차 안내 · FAQ · 1:1 문의 &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="container">
+          <div class="story-grid">
+            <div>
+              <span class="eyebrow">PERFUMER'S PHILOSOPHY</span>
+              <h2 class="section-title">조향사 철학: 향기는 기억을 보관하는 가장 투명한 그릇입니다</h2>
+              <p class="story-copy__body" style="margin-top:20px;">
+                온다 향방의 모든 향료는 프랑스 그라스(Grasse) 산 천연 에센셜 오일과 국제향료협회(IFRA) 안전 기준을 통과한 파인 프래그런스 등급 원료만을 엄선하여 사용합니다.
+              </p>
+              <p class="story-copy__body">
+                처음 뿌렸을 때의 화려함보다 30분 뒤, 그리고 하루의 끝에 옷깃에서 은은하게 피어오르는 <strong>살결의 잔향(Skin Scent)</strong>을 가장 중요하게 설계합니다. 향수를 처음 접하는 분들도 머리 아픈 알코올 향 없이 온전한 향의 레이어를 경험하실 수 있도록 2주 이상의 저온 숙성 공정을 거칩니다.
+              </p>
+              <div class="meaning-pills">
+                <div class="meaning-pill">
+                  <span class="meaning-pill__en">IFRA Certified</span>
+                  <span class="meaning-pill__kr">국제향료협회 안전 등급 파인 프래그런스 원료</span>
+                </div>
+                <div class="meaning-pill">
+                  <span class="meaning-pill__en">120+ Scents</span>
+                  <span class="meaning-pill__kr">시트러스·마린·플로럴·우디·머스크 세분화 오르간</span>
+                </div>
+                <div class="meaning-pill">
+                  <span class="meaning-pill__en">Formula Archive</span>
+                  <span class="meaning-pill__kr">모든 수강생의 조향 레시피 영구 보관 및 재제작 지원</span>
+                </div>
+              </div>
+            </div>
+            <div class="story-visual__main">
+              <img src="./assets/images/hero_slide_2.jpg" alt="조향 오르간과 스포이드 작업 실사" />
+            </div>
+          </div>
+
+          <!-- Brand Color & Tone Identity -->
+          <div style="margin-top:88px;">
+            <span class="eyebrow">VISUAL IDENTITY &amp; TONE</span>
+            <h3 class="section-title" style="font-size:1.75rem;">영일대의 자연을 담은 4가지 색채</h3>
+            <div class="palette-showcase">
+              <div class="palette-card">
+                <div class="palette-card__swatch" style="background-color:#1D2A3A;"></div>
+                <div class="palette-card__info">
+                  <div class="palette-card__name">Deep Ocean Navy</div>
+                  <div class="palette-card__hex">#1D2A3A · Primary</div>
+                  <p class="palette-card__desc">깊은 영일대 바다의 수면과 고요한 집중의 시간</p>
+                </div>
+              </div>
+              <div class="palette-card">
+                <div class="palette-card__swatch" style="background-color:#F8F6F0; border-bottom:1px solid var(--border-hairline);"></div>
+                <div class="palette-card__info">
+                  <div class="palette-card__name">Warm Ivory</div>
+                  <div class="palette-card__hex">#F8F6F0 · Secondary</div>
+                  <p class="palette-card__desc">오후의 햇살을 머금은 백사장과 여백의 미</p>
+                </div>
+              </div>
+              <div class="palette-card">
+                <div class="palette-card__swatch" style="background-color:#D9CBB8;"></div>
+                <div class="palette-card__info">
+                  <div class="palette-card__name">Sand Beige</div>
+                  <div class="palette-card__hex">#D9CBB8 · Accent 01</div>
+                  <p class="palette-card__desc">파도가 지나간 모래의 결과 시향지의 따뜻한 질감</p>
+                </div>
+              </div>
+              <div class="palette-card">
+                <div class="palette-card__swatch" style="background-color:#9EA89E;"></div>
+                <div class="palette-card__info">
+                  <div class="palette-card__name">Sage Green</div>
+                  <div class="palette-card__hex">#9EA89E · Accent 02</div>
+                  <p class="palette-card__desc">해송 숲길과 보타니컬 에센셜 오일의 자연스러움</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Atelier Space Introduction -->
+      <div class="section section--ivory-warm">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <span class="eyebrow">ATELIER SPACE · POHANG YEONGILDAE</span>
+              <h2 class="section-title">영일대 아틀리에 공간 소개</h2>
+              <p class="section-desc">영일대 해수욕장 산책로에서 도보 3분, 잔잔한 음악과 따뜻한 차가 준비된 아늑한 향기 작업실입니다.</p>
+            </div>
+            <button class="btn btn--navy" onclick="navigateTo('visit')">오시는 길 및 주차 안내 &rarr;</button>
+          </div>
+
+          <div class="space-grid">
+            <div class="space-card">
+              <div class="space-card__img">
+                <img src="./assets/images/hero_slide_2.jpg" alt="올팩션 바 & 향료 오르간 실사" />
+              </div>
+              <div class="space-card__body">
+                <h3>01. Olfaction Bar (올팩션 바 &amp; 조향 오르간)</h3>
+                <p>Top, Middle, Base 노트별로 정갈하게 배열된 120여 종의 조향 오르간에서 조향사의 가이드와 함께 시향을 진행합니다.</p>
+              </div>
+            </div>
+            <div class="space-card">
+              <div class="space-card__img">
+                <img src="./assets/images/perfume_yunseul.jpg" alt="자연광 블렌딩 테이블과 윤슬 보틀 실사" />
+              </div>
+              <div class="space-card__body">
+                <h3>02. Sunlit Blending Table (자연광 조향 테이블)</h3>
+                <p>오후의 채광이 부드럽게 스며드는 원목 테이블에서 정밀 전자저울과 유리 비커를 사용해 0.01g 단위로 나만의 향을 조합합니다.</p>
+              </div>
+            </div>
+            <div class="space-card">
+              <div class="space-card__img">
+                <img src="./assets/images/hero_slide_3.jpg" alt="커스텀 라벨링 & 패키징 존 실사" />
+              </div>
+              <div class="space-card__body">
+                <h3>03. Custom Labeling &amp; Gift Zone (각인 및 패키징 존)</h3>
+                <p>직접 지은 향수 이름과 날짜, 짧은 문구를 보틀 라벨에 각인하고 시그니처 리넨 파우치와 코튼 박스에 정성껏 포장합니다.</p>
+              </div>
+            </div>
+            <div class="space-card">
+              <div class="space-card__img">
+                <img src="./assets/images/fragrance_home_set.jpg" alt="티 라운지 & 포토존 실사" />
+              </div>
+              <div class="space-card__body">
+                <h3>04. Scent &amp; Tea Lounge (웰컴 티 라운지 &amp; 포토존)</h3>
+                <p>후각의 피로를 덜어주는 계절 허브티가 웰컴 드링크로 제공되며, 완성된 향수를 영일대 감성 오브제와 함께 촬영할 수 있습니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         VIEW 3: CLASS (프로그램 상세 안내 창 & 실시간 예약 시스템 통합)
+         ================================================================== -->
+    <section class="view-section" id="view-class">
+      <div class="page-hero">
+        <div class="container">
+          <span class="eyebrow" style="color:var(--color-sand);">CURATED PROGRAM GUIDE &amp; REAL-TIME BOOKING</span>
+          <h1 class="page-hero__title">프로그램 상세 안내 &amp; 실시간 예약</h1>
+          <p class="page-hero__desc">
+            비슷한 성격의 조향 프로그램을 카테고리별로 묶어 한눈에 비교하실 수 있습니다. 각 프로그램의 시간대별 진행 구성과 포함 내역을 확인한 뒤 원하는 타임슬롯(11:00 / 14:00 / 17:00)을 바로 예약해 보세요.
+          </p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="container">
+          <!-- Interactive Program Guide Explorer Window (프로그램 상세 안내 창) -->
+          <div class="program-guide-box" id="programGuideWindow">
+            <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px; padding-bottom:20px; border-bottom:1px solid var(--border-hairline);">
+              <div>
+                <span class="eyebrow">PROGRAM CATEGORY GUIDE</span>
+                <h2 class="section-title" style="font-size:1.75rem;">카테고리별 프로그램 상세 안내 창</h2>
+              </div>
+              <div class="filter-tabs" id="programGuideTabs">
+                <button type="button" class="filter-tab active" onclick="switchProgramGuideTab('class-perfume-50', this)">01. 시그니처 퍼퓸 원데이</button>
+                <button type="button" class="filter-tab" onclick="switchProgramGuideTab('class-home-fragrance', this)">02. 공간 향기 (디퓨저·룸스프레이)</button>
+                <button type="button" class="filter-tab" onclick="switchProgramGuideTab('class-hobby-regular', this)">03. 정규 취미반 &amp; 단체 워크숍</button>
+              </div>
+            </div>
+
+            <div id="programGuideDetailBody">
+              <!-- Populated dynamically by app.js -->
+            </div>
+          </div>
+
+          <span class="eyebrow">4-STEP CURRICULUM</span>
+          <h2 class="section-title" style="margin-bottom:28px;">공통 조향 클래스 4단계 프로세스</h2>
+          <div class="process-steps">
+            <div class="process-step">
+              <div class="process-step__num">STEP 01</div>
+              <div class="process-step__title">올팩션 테스트 (Olfaction)</div>
+              <p class="process-step__desc">웰컴 티와 함께 향수의 구조를 이해하고, 30여 가지 핵심 베이스·키 노트를 시향하며 취향을 발견합니다.</p>
+            </div>
+            <div class="process-step">
+              <div class="process-step__num">STEP 02</div>
+              <div class="process-step__title">포뮬러 설계 (Formula)</div>
+              <p class="process-step__desc">조향사의 1:1 피드백을 통해 Top · Middle · Base 노트의 조화로운 비율을 설계하고 레시피 시트를 작성합니다.</p>
+            </div>
+            <div class="process-step">
+              <div class="process-step__num">STEP 03</div>
+              <div class="process-step__title">시향 및 블렌딩 (Blending)</div>
+              <p class="process-step__desc">1차 샘플링 시향 후 원하는 무드로 비율을 미세 조정한 뒤, 최종 오 드 퍼퓸(50ml) 본품을 직접 조향합니다.</p>
+            </div>
+            <div class="process-step">
+              <div class="process-step__num">STEP 04</div>
+              <div class="process-step__title">각인 라벨링 &amp; 패키징</div>
+              <p class="process-step__desc">나만의 향수 이름과 문구를 커스텀 라벨로 인쇄해 부착하고, 시그니처 기프트 패키지와 포토존 촬영으로 마무리합니다.</p>
+            </div>
+          </div>
+
+          <!-- Real-Time Interactive Booking Workbench -->
+          <div id="bookingWorkbench" style="scroll-margin-top: 100px;">
+            <div class="section-header" style="margin-bottom:24px;">
+              <div>
+                <span class="eyebrow">REAL-TIME RESERVATION SYSTEM</span>
+                <h2 class="section-title">실시간 클래스 예약 &amp; 예약금 결제</h2>
+              </div>
+              <button class="btn btn--outline-navy btn--sm" onclick="openGroupInquiryModal()">
+                기업 / 학교 / 단체 출강 워크숍 견적 문의 &rarr;
+              </button>
+            </div>
+
+            <div class="booking-workbench">
+              <!-- Left Column: Class, Calendar, Timeslot -->
+              <div>
+                <div class="booking-step-title">
+                  <span class="booking-step-badge">1</span>
+                  <span>클래스 프로그램 선택</span>
+                </div>
+                <div class="class-select-list" id="bookingClassList">
+                  <!-- Populated by app.js -->
+                </div>
+
+                <div class="booking-step-title">
+                  <span class="booking-step-badge">2</span>
+                  <span>예약 날짜 선택 <small style="font-weight:400; color:var(--text-muted); font-size:0.8rem;">(매주 월요일 정기 휴무)</small></span>
+                </div>
+                <div class="calendar-box">
+                  <div class="calendar-header">
+                    <button class="btn btn--outline-navy btn--sm" onclick="changeCalendarMonth(-1)">&larr; 이전 달</button>
+                    <span class="calendar-month-title tabular-nums" id="calendarMonthLabel">2026년 10월</span>
+                    <button class="btn btn--outline-navy btn--sm" onclick="changeCalendarMonth(1)">다음 달 &rarr;</button>
+                  </div>
+                  <div class="calendar-weekdays">
+                    <span style="color:#B84A39;">일</span>
+                    <span>월</span>
+                    <span>화</span>
+                    <span>수</span>
+                    <span>목</span>
+                    <span>금</span>
+                    <span style="color:#2C3E55;">토</span>
+                  </div>
+                  <div class="calendar-days tabular-nums" id="calendarDaysGrid">
+                    <!-- Populated by app.js -->
+                  </div>
+                </div>
+
+                <div class="booking-step-title">
+                  <span class="booking-step-badge">3</span>
+                  <span>타임슬롯 및 실시간 잔여석 선택</span>
+                </div>
+                <div class="timeslot-grid tabular-nums" id="timeslotGrid">
+                  <!-- Populated by app.js -->
+                </div>
+              </div>
+
+              <!-- Right Column: Guest Details & Deposit Payment -->
+              <form class="booking-summary-panel" id="bookingForm" onsubmit="submitClassBooking(event)">
+                <div>
+                  <div class="booking-step-title">
+                    <span class="booking-step-badge">4</span>
+                    <span>예약자 정보 및 결제 수단</span>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="bookingHeadcount">수강 인원 선택 (동반 2인 이상 5% 할인 혜택)</label>
+                    <select class="form-select tabular-nums" id="bookingHeadcount" onchange="updateBookingSummary()">
+                      <option value="1">1명 (프라이빗 집중 케어)</option>
+                      <option value="2" selected>2명 (커플 / 우정 추천 · 5% 할인)</option>
+                      <option value="3">3명 (소그룹 · 5% 할인)</option>
+                      <option value="4">4명 (소그룹 · 5% 할인)</option>
+                      <option value="5">5명 (프라이빗 타임 단독 대관 가능 · 5% 할인)</option>
+                      <option value="6">6명 (프라이빗 타임 단독 대관 · 5% 할인)</option>
+                    </select>
+                  </div>
+
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <div class="form-group">
+                      <label class="form-label" for="bookingName">예약자 성함 *</label>
+                      <input type="text" class="form-input" id="bookingName" placeholder="예: 김윤슬" required />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="bookingPhone">연락처 (알림톡 수신) *</label>
+                      <input type="tel" class="form-input tabular-nums" id="bookingPhone" placeholder="010-0000-0000" required />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="bookingEngraving">보틀 라벨 각인 문구 (선택, 현장 변경 가능)</label>
+                    <input type="text" class="form-input" id="bookingEngraving" maxlength="20" placeholder="예: Onda de Pohang, 2026.10" />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="bookingRequest">요청사항 (기념일 선물 포장, 알레르기 유무 등)</label>
+                    <input type="text" class="form-input" id="bookingRequest" placeholder="예: 기념일 방문입니다. 시트러스 계열 선호해요." />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">결제 방식 선택</label>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px;">
+                      <button type="button" class="pay-method-btn selected" id="payTypeDeposit" onclick="selectPayMode('deposit')">
+                        예약금 선결제 (인당 20,000원)
+                      </button>
+                      <button type="button" class="pay-method-btn" id="payTypeFull" onclick="selectPayMode('full')">
+                        전액 결제 (현장 결제 생략)
+                      </button>
+                    </div>
+                    <div class="payment-methods">
+                      <button type="button" class="pay-method-btn selected" onclick="selectPayProvider('네이버페이', this)">네이버페이</button>
+                      <button type="button" class="pay-method-btn" onclick="selectPayProvider('카카오페이', this)">카카오페이</button>
+                      <button type="button" class="pay-method-btn" onclick="selectPayProvider('신용/체크카드', this)">신용카드 PG</button>
+                    </div>
+                  </div>
+
+                  <label style="display:flex; align-items:flex-start; gap:8px; font-size:0.8rem; color:var(--text-secondary); cursor:pointer; margin-top:10px;">
+                    <input type="checkbox" checked required style="margin-top:4px;" />
+                    <span>[필수] 카카오 알림톡 예약 안내 수신 및 노쇼 방지 환불 규정(수업 2일 전까지 100% 환불)에 동의합니다.</span>
+                  </label>
+                </div>
+
+                <div>
+                  <div class="price-breakdown tabular-nums" id="bookingPriceBreakdown">
+                    <!-- Populated by app.js -->
+                  </div>
+                  <button type="submit" class="btn btn--navy btn--full">
+                    실시간 예약 및 결제 확정하기
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         VIEW 4: SHOP (온라인 스토어)
+         ================================================================== -->
+    <section class="view-section" id="view-shop">
+      <div class="page-hero">
+        <div class="container">
+          <span class="eyebrow" style="color:var(--color-sand);">ONDA ONLINE FRAGRANCE BOUTIQUE</span>
+          <h1 class="page-hero__title">시그니처 프래그런스 스토어</h1>
+          <p class="page-hero__desc">
+            Top · Middle · Base 향조 피라미드와 감성 노트를 통해 시향 없이도 당신의 공간과 계절에 어울리는 향을 만나보세요. 모든 본품에는 무료 보틀 각인 서비스가 제공됩니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="container">
+          <!-- Scent Finder Callout Banner -->
+          <div class="scent-finder-banner">
+            <div>
+              <span class="eyebrow" style="color:var(--color-sand);">ONLINE OLFACTION GUIDE</span>
+              <h3 style="font-family:var(--font-serif-kr); font-size:1.45rem; margin-bottom:6px;">
+                시향 없이 고민되시나요? 30초 만에 나에게 맞는 온다의 향기를 찾아보세요
+              </h3>
+              <p style="font-size:0.9rem; color:var(--text-on-dark-muted);">
+                선호하는 계절과 바다의 시간대, 잔향 스타일을 선택하면 조향사가 맞춤 향수를 추천해 드립니다.
+              </p>
+            </div>
+            <button class="btn btn--ivory" onclick="openScentFinderModal()">
+              나만의 향 추천 테스트 시작 &rarr;
+            </button>
+          </div>
+
+          <!-- Filter & Sort Toolbar -->
+          <div class="shop-toolbar">
+            <div class="filter-tabs" id="shopCategoryTabs">
+              <button class="filter-tab active" onclick="filterShopProducts('all', this)">All Products (8)</button>
+              <button class="filter-tab" onclick="filterShopProducts('perfume', this)">Signature Perfume (오 드 퍼퓸)</button>
+              <button class="filter-tab" onclick="filterShopProducts('home', this)">Home Fragrance (디퓨저 / 룸스프레이)</button>
+              <button class="filter-tab" onclick="filterShopProducts('gift', this)">Gift Set (패키징 / 시향 키트)</button>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:10px;">
+              <label for="shopSortSelect" style="font-size:0.84rem; color:var(--text-secondary);">정렬:</label>
+              <select id="shopSortSelect" class="form-select" style="width:auto; padding:7px 14px; font-size:0.85rem;" onchange="sortShopProducts(this.value)">
+                <option value="featured">베스트셀러 추천순</option>
+                <option value="price-asc">가격 낮은순</option>
+                <option value="price-desc">가격 높은순</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="product-grid" id="shopProductGrid">
+            <!-- Populated by app.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         VIEW 5: REVIEW & JOURNAL (리뷰 남기기 창 · 수강생 아카이브 · 향기 노트 통합)
+         ================================================================== -->
+    <section class="view-section" id="view-journal">
+      <div class="page-hero">
+        <div class="container">
+          <span class="eyebrow" style="color:var(--color-sand);">COMMUNITY REVIEW &amp; SCENT JOURNAL</span>
+          <h1 class="page-hero__title">향기 리뷰 남기기 &amp; 조향 노트 아카이브</h1>
+          <p class="page-hero__desc">
+            클래스에서 직접 완성한 나만의 향수 레시피와 스토어 시향 후기를 카테고리별로 남겨보세요. 매월 베스트 리뷰어 3분께 시그니처 룸스프레이 본품을 선물로 드립니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="container">
+          <!-- Interactive Review Composer Window (리뷰 남기기 전용 창) -->
+          <div class="review-composer-window" id="reviewComposerWindow">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; padding-bottom:18px; border-bottom:1px solid var(--border-hairline);">
+              <div>
+                <span class="eyebrow">WRITE YOUR SCENT MEMORY</span>
+                <h2 class="section-title" style="font-size:1.65rem;">나만의 향기 리뷰 &amp; 레시피 기록 남기기</h2>
+              </div>
+              <span style="font-size:0.82rem; color:var(--color-sage-deep); font-weight:600;">
+                ★ 포토/레시피 후기 작성 시 온라인 스토어 3,000P 즉시 적립
+              </span>
+            </div>
+
+            <form class="review-composer-grid" onsubmit="submitInlineReview(event)">
+              <!-- Left Column: Category Group, Target Item, Star Rating, Mood Tags -->
+              <div>
+                <div class="form-group">
+                  <label class="form-label">1. 후기 카테고리 분류 선택 *</label>
+                  <div class="filter-tabs" id="composerCategoryBtns">
+                    <button type="button" class="filter-tab active" onclick="setComposerCategory('class', this)">클래스 프로그램 후기</button>
+                    <button type="button" class="filter-tab" onclick="setComposerCategory('shop', this)">온라인 스토어 제품 후기</button>
+                    <button type="button" class="filter-tab" onclick="setComposerCategory('group', this)">단체/기업 워크숍 후기</button>
+                  </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                  <div class="form-group">
+                    <label class="form-label" for="inlineRevTarget">2. 경험하신 프로그램 / 제품 *</label>
+                    <select class="form-select" id="inlineRevTarget">
+                      <option value="시그니처 원데이 클래스 50ml">시그니처 원데이 클래스 50ml</option>
+                      <option value="공간 향기 (디퓨저·룸스프레이) 클래스">공간 향기 (디퓨저·룸스프레이) 클래스</option>
+                      <option value="조향 취미/정규 4주 과정">조향 취미/정규 4주 과정</option>
+                      <option value="윤슬 (YUNSEUL) 오 드 퍼퓸">윤슬 (YUNSEUL) 오 드 퍼퓸</option>
+                      <option value="파도 (ONDA) 오 드 퍼퓸">파도 (ONDA) 오 드 퍼퓸</option>
+                      <option value="모래의 온기 (WARM SAND)">모래의 온기 (WARM SAND)</option>
+                      <option value="영일대의 밤 리드 디퓨저">영일대의 밤 리드 디퓨저</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">3. 만족도 별점 평가 *</label>
+                    <div class="star-rating-picker" id="inlineStarPicker">
+                      <button type="button" class="star-btn active" onclick="setInlineStarRating(1)">★</button>
+                      <button type="button" class="star-btn active" onclick="setInlineStarRating(2)">★</button>
+                      <button type="button" class="star-btn active" onclick="setInlineStarRating(3)">★</button>
+                      <button type="button" class="star-btn active" onclick="setInlineStarRating(4)">★</button>
+                      <button type="button" class="star-btn active" onclick="setInlineStarRating(5)">★</button>
+                      <span id="inlineStarScoreText" style="font-size:0.82rem; font-weight:700; color:var(--color-navy); margin-left:6px; align-self:center;">5.0 최고예요</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom:0;">
+                  <label class="form-label">4. 향기 무드 키워드 태그 선택 (다중 선택 가능)</label>
+                  <div class="mood-tags-picker" id="inlineMoodTags">
+                    <button type="button" class="mood-tag-btn selected" onclick="toggleMoodTag(this)">#윤슬처럼맑은향</button>
+                    <button type="button" class="mood-tag-btn selected" onclick="toggleMoodTag(this)">#영일대데이트추천</button>
+                    <button type="button" class="mood-tag-btn" onclick="toggleMoodTag(this)">#살결에남는포근한잔향</button>
+                    <button type="button" class="mood-tag-btn" onclick="toggleMoodTag(this)">#조향사님섬세한가이드</button>
+                    <button type="button" class="mood-tag-btn" onclick="toggleMoodTag(this)">#보틀각인선물추천</button>
+                    <button type="button" class="mood-tag-btn" onclick="toggleMoodTag(this)">#머리안아픈자연향</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right Column: Author, Custom Formula Note, Review Content & Submit -->
+              <div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                  <div class="form-group">
+                    <label class="form-label" for="inlineRevAuthor">작성자 성함 / 닉네임 *</label>
+                    <input type="text" class="form-input" id="inlineRevAuthor" placeholder="예: 김*슬 (포항 여행객)" required />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="inlineRevFormula">나만의 향수 이름 / 기억에 남는 노트 (선택)</label>
+                    <input type="text" class="form-input" id="inlineRevFormula" placeholder="예: '영일대의 오후' (베르가못+우디)" />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="inlineRevText">상세 후기 내용 *</label>
+                  <textarea class="form-textarea" id="inlineRevText" rows="3" placeholder="공방에서의 조향 경험이나 향기의 첫인상, 잔향 지속력에 대한 솔직한 후기를 남겨주세요." required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn--navy btn--full">
+                  향기 리뷰 아카이브에 등록하기 &rarr;
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Category-Grouped Student & Customer Reviews Board -->
+          <div class="section-header" style="margin-bottom:24px;">
+            <div>
+              <span class="eyebrow">VERIFIED REVIEWS BY CATEGORY</span>
+              <h2 class="section-title">카테고리별 수강생 &amp; 바이어 후기</h2>
+            </div>
+            <div class="filter-tabs" id="reviewCategoryFilterTabs">
+              <button type="button" class="filter-tab active" onclick="filterArchiveReviews('all', this)">전체 후기</button>
+              <button type="button" class="filter-tab" onclick="filterArchiveReviews('class', this)">클래스 수강 후기</button>
+              <button type="button" class="filter-tab" onclick="filterArchiveReviews('shop', this)">스토어 구매 후기</button>
+              <button type="button" class="filter-tab" onclick="filterArchiveReviews('group', this)">단체 워크숍 후기</button>
+            </div>
+          </div>
+
+          <div class="review-grid" id="archiveReviewGrid">
+            <!-- Populated by app.js -->
+          </div>
+
+          <!-- Scent Stories Journal -->
+          <div class="section-header" style="margin-top:64px;">
+            <div>
+              <span class="eyebrow">SCENT STORIES · BRAND JOURNAL</span>
+              <h2 class="section-title">조향사의 향기 에세이 &amp; 노트</h2>
+            </div>
+          </div>
+
+          <div class="journal-grid" id="journalListGrid">
+            <!-- Populated by app.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         VIEW 6: VISIT & CONTACT (오시는 길, 운영 안내, FAQ, 1:1 문의)
+         ================================================================== -->
+    <section class="view-section" id="view-visit">
+      <div class="page-hero">
+        <div class="container">
+          <span class="eyebrow" style="color:var(--color-sand);">ABOUT &amp; VISIT · LOCATION &amp; CONTACT</span>
+          <h1 class="page-hero__title">오시는 길 · 운영 안내 · FAQ · 1:1 문의</h1>
+          <p class="page-hero__desc">
+            포항 영일대 해수욕장 파도 소리가 들리는 골목, 온다 향방 아틀리에로 당신을 초대합니다.
+          </p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:24px;">
+            <button type="button" class="btn btn--outline-ivory btn--sm" onclick="navigateTo('about')">
+              &larr; 01. 브랜드 철학 &amp; 아틀리에 공간 소개
+            </button>
+            <button type="button" class="btn btn--ivory btn--sm" onclick="navigateTo('visit')">
+              02. 오시는 길 · 주차 안내 · FAQ · 1:1 문의
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="container">
+          <div class="visit-grid">
+            <!-- Map & Location Visual Card -->
+            <div class="map-card">
+              <div class="map-illustration">
+                <span class="eyebrow" style="color:var(--color-sand);">LOCATION MAP · POHANG YEONGILDAE</span>
+                <h3 style="font-family:var(--font-serif-kr); font-size:1.35rem; margin-bottom:14px;">
+                  경상북도 포항시 북구 해안로 189번길 14, 2층 온다 향방
+                </h3>
+                <!-- Architectural Coastal Map SVG -->
+                <svg viewBox="0 0 600 280" style="width:100%; height:auto; border-radius:6px; background:#162230; border:1px solid rgba(217,203,184,0.25); margin-bottom:18px;" aria-label="영일대 해수욕장 및 온다 향방 약도">
+                  <!-- Sea Area -->
+                  <path d="M0,0 L600,0 L600,95 Q450,115 300,95 T0,105 Z" fill="#1D2A3A" />
+                  <path d="M20,45 Q90,30 160,45 T300,45 T440,45 T580,45" fill="none" stroke="rgba(217,203,184,0.35)" stroke-width="1.5" stroke-dasharray="6 4" />
+                  <text x="440" y="65" fill="#D9CBB8" font-size="13" font-family="serif" letter-spacing="2">YEONGILDAE BEACH (영일대 해수욕장)</text>
+                  <!-- Coastal Road -->
+                  <path d="M0,115 Q300,100 600,110" fill="none" stroke="#D9CBB8" stroke-width="6" opacity="0.7" />
+                  <text x="30" y="135" fill="#F8F6F0" font-size="11" opacity="0.8">해안로 (산책로 도보 3분)</text>
+                  <!-- Streets -->
+                  <line x1="220" y1="108" x2="220" y2="280" stroke="rgba(248,246,240,0.3)" stroke-width="14" />
+                  <line x1="410" y1="108" x2="410" y2="280" stroke="rgba(248,246,240,0.22)" stroke-width="10" />
+                  <line x1="80" y1="195" x2="540" y2="195" stroke="rgba(248,246,240,0.25)" stroke-width="10" />
+                  <!-- Parking Lot Marker -->
+                  <rect x="370" y="135" width="80" height="36" rx="4" fill="#2C3E55" stroke="#9EA89E" />
+                  <text x="410" y="157" fill="#F8F6F0" font-size="11" text-anchor="middle">영일대 공영주차장</text>
+                  <!-- ONDA Studio Pin -->
+                  <circle cx="220" cy="195" r="24" fill="rgba(217,203,184,0.22)" />
+                  <circle cx="220" cy="195" r="10" fill="#D9CBB8" />
+                  <rect x="135" y="222" width="170" height="38" rx="4" fill="#F8F6F0" />
+                  <text x="220" y="245" fill="#1D2A3A" font-size="12" font-weight="bold" text-anchor="middle">★ 온다 향방 (ONDA STUDIO)</text>
+                </svg>
+
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                  <a href="https://map.naver.com" target="_blank" rel="noopener noreferrer" class="btn btn--ivory btn--sm">
+                    네이버 지도 길찾기 &#8599;
+                  </a>
+                  <a href="https://map.kakao.com" target="_blank" rel="noopener noreferrer" class="btn btn--outline-ivory btn--sm">
+                    카카오맵 길찾기 &#8599;
+                  </a>
+                  <button class="btn btn--outline-ivory btn--sm" onclick="copyStudioAddress()">
+                    도로명 주소 복사
+                  </button>
+                </div>
+              </div>
+
+              <div style="padding:28px;">
+                <h4 style="font-family:var(--font-serif-kr); font-size:1.15rem; margin-bottom:12px; color:var(--color-navy);">
+                  도보 동선 및 주차 팁
+                </h4>
+                <ul style="display:grid; gap:10px; font-size:0.9rem; color:var(--text-secondary);">
+                  <li>• <strong>도보 방문 시</strong>: 영일대 해수욕장 해상누각 맞은편 해안로 카페거리에서 골목 안쪽으로 도보 3분 거리 (1층 화이트 린넨 쇼룸 건물 2층)</li>
+                  <li>• <strong>자차 및 주차 안내</strong>: ‘영일대 해수욕장 제1공영주차장’ 또는 ‘해안로 노상 공영주차장’ 이용 권장 (도보 2분 거리 / 클래스 수강생 주차 지원 쿠폰 1시간 제공)</li>
+                  <li>• <strong>대중교통 이용 시</strong>: 포항역(KTX)에서 택시 약 15분 소요 / 시내버스 207, 900번 ‘영일대 해수욕장’ 정류장 하차</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Operating Info & 1:1 Quick Inquiry -->
+            <div class="info-list">
+              <div class="info-item">
+                <h4>운영 시간 &amp; 100% 사전 예약제 원칙</h4>
+                <p>
+                  • <strong>화요일 – 일요일</strong>: 11:00 – 20:00 (마지막 클래스 17:00 시작)<br />
+                  • <strong>정기 휴무</strong>: 매주 월요일 (공휴일인 경우 정상 운영 후 익일 휴무)<br />
+                  • 조향 집중도를 위해 <strong>100% 사전 예약제</strong>로 운영됩니다. 당일 방문이나 단순 시향/구매 방문을 원하시는 경우 카카오톡 채널로 잔여 타임을 먼저 확인해 주세요.
+                </p>
+              </div>
+
+              <div class="info-item">
+                <h4>실시간 1:1 간편 채널 상담</h4>
+                <p style="margin-bottom:14px;">가장 빠르게 조향사와 상담하실 수 있는 전용 채널입니다. (평균 응답 시간 15분 이내)</p>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                  <button class="btn btn--navy btn--sm" onclick="showToast('카카오톡 채널 [온다 향방 ONDA] 상담 창으로 연결합니다. (시안 데모)')">
+                    카카오톡 채널 1:1 상담
+                  </button>
+                  <button class="btn btn--outline-navy btn--sm" onclick="showToast('네이버 톡톡 실시간 상담 창으로 연결합니다. (시안 데모)')">
+                    네이버 톡톡 문의하기
+                  </button>
+                </div>
+              </div>
+
+              <!-- Direct 1:1 Inquiry Form -->
+              <form class="info-item" onsubmit="submitDirectInquiry(event)">
+                <h4>홈페이지 1:1 빠른 문의 / 기업 워크숍 견적 요청</h4>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px;">
+                  <input type="text" class="form-input" placeholder="성함 또는 기업/단체명 *" required />
+                  <input type="tel" class="form-input tabular-nums" placeholder="회신 연락처 *" required />
+                </div>
+                <select class="form-select" style="margin-top:10px;">
+                  <option>클래스 당일 예약 / 일정 문의</option>
+                  <option>기업 · 학교 · 관공서 출강 및 단체 워크숍 문의</option>
+                  <option>온라인 스토어 배송 / 답례품 대량 주문 문의</option>
+                  <option>기존 수강생 조향 레시피 재주문 문의</option>
+                </select>
+                <textarea class="form-textarea" rows="3" style="margin-top:10px;" placeholder="문의하실 내용이나 희망 일정/인원을 남겨주시면 알림톡으로 답변드립니다." required></textarea>
+                <button type="submit" class="btn btn--navy btn--sm" style="margin-top:10px; width:100%;">
+                  문의 접수하기
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- FAQ Section -->
+          <div style="max-width:880px; margin:0 auto;">
+            <div style="text-align:center; margin-bottom:32px;">
+              <span class="eyebrow">FREQUENTLY ASKED QUESTIONS</span>
+              <h2 class="section-title">자주 묻는 질문 (FAQ)</h2>
+            </div>
+            <div class="faq-list" id="faqAccordionList">
+              <!-- Populated by app.js -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ====================================================================
+       MODALS & DRAWERS
+       ==================================================================== -->
+
+  <!-- 0. Program Detail Guide Modal (프로그램 상세 안내 모달창) -->
+  <div class="modal-backdrop" id="programDetailModal" onclick="closeModalOnBackdrop(event, 'programDetailModal')">
+    <div class="modal-dialog" style="max-width:860px; padding:36px;" role="dialog" aria-modal="true">
+      <button class="modal-close" onclick="closeModal('programDetailModal')" aria-label="닫기">&times;</button>
+      <div id="programDetailModalBody">
+        <!-- Populated dynamically by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. Product Detail Modal (with Scent Pyramid & Engraving Preview) -->
+  <div class="modal-backdrop" id="productModal" onclick="closeModalOnBackdrop(event, 'productModal')">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalProductTitle">
+      <button class="modal-close" onclick="closeModal('productModal')" aria-label="닫기">&times;</button>
+      <div class="product-modal-grid" id="productModalContent">
+        <!-- Populated dynamically by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Scent Finder Quiz Modal -->
+  <div class="modal-backdrop" id="scentFinderModal" onclick="closeModalOnBackdrop(event, 'scentFinderModal')">
+    <div class="modal-dialog" style="max-width:640px; padding:36px;" role="dialog" aria-modal="true">
+      <button class="modal-close" onclick="closeModal('scentFinderModal')" aria-label="닫기">&times;</button>
+      <div id="scentFinderBody">
+        <!-- Populated by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Journal Article Reader Modal -->
+  <div class="modal-backdrop" id="journalModal" onclick="closeModalOnBackdrop(event, 'journalModal')">
+    <div class="modal-dialog" style="max-width:740px; padding:40px;" role="dialog" aria-modal="true">
+      <button class="modal-close" onclick="closeModal('journalModal')" aria-label="닫기">&times;</button>
+      <div id="journalModalBody">
+        <!-- Populated by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Write Review Modal (어디서나 열리는 리뷰 작성 모달창) -->
+  <div class="modal-backdrop" id="reviewWriteModal" onclick="closeModalOnBackdrop(event, 'reviewWriteModal')">
+    <div class="modal-dialog" style="max-width:560px; padding:34px;" role="dialog" aria-modal="true">
+      <button class="modal-close" onclick="closeModal('reviewWriteModal')" aria-label="닫기">&times;</button>
+      <span class="eyebrow">WRITE A SCENT REVIEW</span>
+      <h3 style="font-family:var(--font-serif-kr); font-size:1.45rem; margin-bottom:14px;">향기 기록 &amp; 후기 남기기</h3>
+      <form onsubmit="submitNewReview(event)">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div class="form-group">
+            <label class="form-label">작성자 닉네임 *</label>
+            <input type="text" class="form-input" id="revAuthor" placeholder="예: 박*하 (수강생)" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">카테고리 분류 *</label>
+            <select class="form-select" id="revCategorySelect">
+              <option value="class">클래스 프로그램 후기</option>
+              <option value="shop">온라인 스토어 제품 후기</option>
+              <option value="group">단체/기업 워크숍 후기</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">경험하신 클래스 또는 제품 *</label>
+          <select class="form-select" id="revTag">
+            <option value="시그니처 원데이 클래스 50ml">시그니처 원데이 클래스 50ml</option>
+            <option value="공간 향기 디퓨저·룸스프레이 클래스">공간 향기 디퓨저·룸스프레이 클래스</option>
+            <option value="윤슬 (YUNSEUL) 오 드 퍼퓸">윤슬 (YUNSEUL) 오 드 퍼퓸</option>
+            <option value="파도 (ONDA) 오 드 퍼퓸">파도 (ONDA) 오 드 퍼퓸</option>
+            <option value="모래의 온기 (WARM SAND)">모래의 온기 (WARM SAND)</option>
+            <option value="기업/단체 프라이빗 워크숍">기업/단체 프라이빗 워크숍</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">나만의 향수 이름 또는 기억에 남는 향조 (선택)</label>
+          <input type="text" class="form-input" id="revModalFormula" placeholder="예: '윤슬의 오후' (시트러스 + 화이트티 + 우디)" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">후기 내용 *</label>
+          <textarea class="form-textarea" id="revText" rows="4" placeholder="공방에서의 시간이나 향기의 첫인상, 잔향에 대한 소감을 자유롭게 남겨주세요." required></textarea>
+        </div>
+        <button type="submit" class="btn btn--navy btn--full">후기 등록하기</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 5. Shopping Cart Drawer -->
+  <div class="drawer-backdrop" id="cartDrawer" onclick="closeDrawerOnBackdrop(event, 'cartDrawer')">
+    <div class="drawer-panel">
+      <div class="drawer-header">
+        <h3>장바구니 (Shopping Bag)</h3>
+        <button class="modal-close" style="position:static;" onclick="closeDrawer('cartDrawer')">&times;</button>
+      </div>
+      <div class="drawer-body" id="cartDrawerBody">
+        <!-- Populated by app.js -->
+      </div>
+      <div class="drawer-footer" id="cartDrawerFooter">
+        <!-- Populated by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. My Reservations Drawer -->
+  <div class="drawer-backdrop" id="reservationDrawer" onclick="closeDrawerOnBackdrop(event, 'reservationDrawer')">
+    <div class="drawer-panel">
+      <div class="drawer-header">
+        <h3>실시간 클래스 예약 내역</h3>
+        <button class="modal-close" style="position:static;" onclick="closeDrawer('reservationDrawer')">&times;</button>
+      </div>
+      <div class="drawer-body" id="reservationDrawerBody">
+        <!-- Populated by app.js -->
+      </div>
+      <div class="drawer-footer">
+        <button class="btn btn--navy btn--full" onclick="closeDrawer('reservationDrawer'); navigateTo('class', 'bookingWorkbench');">
+          + 새 클래스 예약 추가하기
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-title">ONDA PERFUME STUDIO</div>
+          <p style="margin-bottom:14px;">
+            온다 향방 (구 윤슬향방) · 바다가 보내온 쉼, 나만의 향기가 온다<br />
+            경상북도 포항시 북구 해안로 189번길 14, 2층 (영일대 해수욕장 인근)
+          </p>
+          <p style="font-size:0.78rem; opacity:0.7;">
+            대표: 김윤슬 | 사업자등록번호: 512-48-00921 | 통신판매업신고: 제2026-경북포항-0418호<br />
+            고객센터: 054-252-0924 | 이메일: atelier@ondaperfume.kr
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="#home" onclick="navigateTo('home'); return false;">HOME</a></li>
+            <li><a href="#about" onclick="navigateTo('about'); return false;">ABOUT (브랜드 &amp; 공간)</a></li>
+            <li><a href="#class" onclick="navigateTo('class'); return false;">CLASS (실시간 예약)</a></li>
+            <li><a href="#shop" onclick="navigateTo('shop'); return false;">SHOP (온라인 스토어)</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Archive &amp; Help</h4>
+          <ul>
+            <li><a href="#journal" onclick="navigateTo('journal'); return false;">향기 노트 (Scent Stories)</a></li>
+            <li><a href="#journal" onclick="navigateTo('journal'); return false;">수강생 후기 갤러리</a></li>
+            <li><a href="#visit" onclick="navigateTo('visit'); return false;">오시는 길 &amp; 주차 안내</a></li>
+            <li><a href="#visit" onclick="navigateTo('visit'); return false;">자주 묻는 질문 (FAQ)</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Atelier Hours</h4>
+          <p style="margin-bottom:10px;">
+            화 – 일: 11:00 – 20:00<br />
+            타임슬롯: 11:00 / 14:00 / 17:00<br />
+            매주 월요일 정기 휴무 (100% 사전 예약제)
+          </p>
+          <div style="display:flex; gap:8px; margin-top:12px;">
+            <span style="padding:4px 8px; border:1px solid rgba(248,246,240,0.25); font-size:0.72rem; border-radius:2px;">N Pay 가맹점</span>
+            <span style="padding:4px 8px; border:1px solid rgba(248,246,240,0.25); font-size:0.72rem; border-radius:2px;">카카오페이 결제</span>
+            <span style="padding:4px 8px; border:1px solid rgba(248,246,240,0.25); font-size:0.72rem; border-radius:2px;">알림톡 연동</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding-top:28px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:0.78rem; opacity:0.65;">
+        <span>&copy; 2026 ONDA PERFUME STUDIO. All Rights Reserved.</span>
+        <span>Privacy Policy · Terms of Service · IFRA Standard Compliance</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./data.js"></script>
+  <script src="./onda-store.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

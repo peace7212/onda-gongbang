@@ -1,0 +1,783 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>온다 향방 (ONDA PERFUME STUDIO) 미리보기</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    .onda-serif {
+      font-family: Georgia, 'Noto Serif KR', 'Batang', serif;
+    }
+    .tab-pane {
+      display: none;
+    }
+    .tab-pane.active {
+      display: block;
+    }
+
+    /* Horizontal Slide Track Transition */
+    .slide-track-smooth {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
+    }
+    .slide-item-full {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle Stationary Crystal Glow */
+    .crystal-ambient-glow {
+      background:
+        radial-gradient(circle at 75% 30%, rgba(248, 246, 240, 0.14), transparent 36%),
+        radial-gradient(circle at 22% 70%, rgba(217, 203, 184, 0.10), transparent 42%);
+      animation: crystalBreathing 6.5s ease-in-out infinite;
+    }
+    @keyframes crystalBreathing {
+      0%, 100% { opacity: 0.45; }
+      50% { opacity: 0.9; }
+    }
+  </style>
+</head>
+<body class="bg-transparent text-[var(--foreground)] antialiased p-3">
+  <!-- Outer Browser Frame Card -->
+  <div class="rounded-xl overflow-hidden border border-[var(--border)] shadow-lg" style="background-color:#F8F6F0; color:#1D2A3A;">
+    
+    <!-- Top Renewal Bar -->
+    <div class="px-4 py-1.5 text-xs flex items-center justify-between" style="background-color:#131C27; color:#F8F6F0;">
+      <div class="flex items-center gap-2">
+        <span class="px-2 py-0.5 font-semibold rounded-sm text-xs" style="background-color:#D9CBB8; color:#131C27;">RENEWAL</span>
+        <span>‘윤슬향방’이 <strong>온다 향방 (ONDA PERFUME STUDIO)</strong>으로 새롭게 인사드립니다</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="switchTab('review')" class="underline font-medium text-xs" style="color:#D9CBB8;">&#9998; 리뷰 남기기</button>
+        <button onclick="switchTab('program')" class="underline font-medium text-xs" style="color:#D9CBB8;">프로그램 안내 &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Header Navigation (Grouped into 5 Cohesive Categories) -->
+    <div class="px-4 py-2.5 flex items-center justify-between border-b flex-wrap gap-2" style="background-color:#FDFCF9; border-color:rgba(29,42,58,0.12);">
+      <div class="cursor-pointer" onclick="switchTab('home')">
+        <div class="onda-serif font-bold tracking-widest text-base leading-none" style="color:#1D2A3A;">ONDA</div>
+        <div class="text-xs tracking-wider mt-0.5" style="color:#4E5B6B;">온다 향방 · POHANG</div>
+      </div>
+
+      <div class="flex items-center gap-1 flex-wrap">
+        <button onclick="switchTab('home')" id="nav-home" class="nav-pill px-2.5 py-1.5 rounded text-xs font-semibold transition" style="background-color:#1D2A3A; color:#F8F6F0;">HOME</button>
+        <button onclick="switchTab('program')" id="nav-program" class="nav-pill px-2.5 py-1.5 rounded text-xs font-semibold transition" style="color:#4E5B6B;">PROGRAM &amp; 예약</button>
+        <button onclick="switchTab('shop')" id="nav-shop" class="nav-pill px-2.5 py-1.5 rounded text-xs font-semibold transition" style="color:#4E5B6B;">SHOP (스토어)</button>
+        <button onclick="switchTab('review')" id="nav-review" class="nav-pill px-2.5 py-1.5 rounded text-xs font-semibold transition" style="color:#4E5B6B;">REVIEW &amp; 저널</button>
+        <button onclick="switchTab('about')" id="nav-about" class="nav-pill px-2.5 py-1.5 rounded text-xs font-semibold transition" style="color:#4E5B6B;">ABOUT &amp; 오시는길</button>
+      </div>
+
+      <div class="flex items-center gap-1.5">
+        <span id="previewToast" class="text-xs px-2 py-1 rounded font-medium hidden" style="background-color:#E9ECE8; color:#1D2A3A;"></span>
+        <button onclick="switchTab('review')" class="px-2.5 py-1 rounded text-xs font-semibold border" style="border-color:rgba(29,42,58,0.25); color:#1D2A3A;">
+          &#9998; 리뷰 작성
+        </button>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 1: HOME (with Photorealistic Slide Transition & Subtle Crystal Sparkle) ==================== -->
+    <div id="tab-home" class="tab-pane active">
+      <div class="px-5 py-6 relative overflow-hidden border-b" style="background-color:#131C27; color:#F8F6F0; border-color:rgba(217,203,184,0.25);">
+        <!-- Full-Bleed Sliding Photorealistic Background Track -->
+        <div class="absolute inset-0 z-0 overflow-hidden">
+          <div id="prevHeroBgTrack" class="slide-track-smooth">
+            <div class="slide-item-full">
+              <img src="./assets/images/hero_slide_1.jpg" alt="영일대 윤슬과 ONDA 보틀 실사" class="w-full h-full object-cover opacity-45" />
+            </div>
+            <div class="slide-item-full">
+              <img src="./assets/images/hero_slide_2.jpg" alt="온다 향방 조향 오르간 아틀리에 실사" class="w-full h-full object-cover opacity-45" />
+            </div>
+            <div class="slide-item-full">
+              <img src="./assets/images/hero_slide_3.jpg" alt="온다 향방 시그니처 컬렉션 실사" class="w-full h-full object-cover opacity-45" />
+            </div>
+          </div>
+          <div class="absolute inset-0" style="background:linear-gradient(115deg, rgba(19,28,39,0.86) 0%, rgba(29,42,58,0.56) 52%, rgba(19,28,39,0.80) 100%);"></div>
+          <div class="crystal-ambient-glow absolute inset-0 pointer-events-none"></div>
+        </div>
+
+        <!-- Subtle Crystal Sparkle Canvas (출렁임 없이 은은한 크리스탈 반짝임) -->
+        <canvas id="previewWaveCanvas" class="absolute inset-0 w-full h-full pointer-events-none z-10"></canvas>
+
+        <!-- Hero 2-Column Content & Synchronized Photorealistic Slide Showcase -->
+        <div class="relative z-20 grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+          <div class="md:col-span-7">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs mb-2 border" style="border-color:rgba(217,203,184,0.45); color:#D9CBB8; background:rgba(19,28,39,0.5);">
+              <span class="w-1.5 h-1.5 rounded-full inline-block" style="background-color:#F8F6F0; box-shadow:0 0 8px 2px rgba(248,246,240,0.6);"></span>
+              <span id="prevHeroBadge">01. CRYSTAL LIGHT · 햇살과 향기가 머무는 시간</span>
+            </div>
+            <h1 id="prevHeroTitle" class="onda-serif text-xl md:text-2xl font-normal leading-snug mb-1.5">
+              바다가 보내온 쉼,<br />나만의 향기가 온다
+            </h1>
+            <p id="prevHeroDesc" class="text-xs leading-relaxed mb-3" style="color:rgba(248,246,240,0.86);">
+              영일대 파도 곁에서 마주하는 온전한 나만의 향. 120여 가지 자연의 향료와 아날로그 조향 오르간 앞에서 당신의 계절을 기록하세요.
+            </p>
+            <div class="flex flex-wrap gap-2 mb-3">
+              <button onclick="switchTab('program')" class="px-3 py-1.5 rounded text-xs font-semibold shadow-sm" style="background-color:#F8F6F0; color:#131C27;">
+                프로그램 안내 &amp; 예약 &rarr;
+              </button>
+              <button onclick="switchTab('shop')" class="px-3 py-1.5 rounded text-xs font-semibold border" style="border-color:rgba(248,246,240,0.55); color:#F8F6F0; background:rgba(248,246,240,0.1);">
+                실사 향수 스토어 보기
+              </button>
+            </div>
+
+            <!-- Slide Switcher Buttons -->
+            <div class="grid grid-cols-3 gap-1.5 pt-2 border-t" style="border-color:rgba(248,246,240,0.18);">
+              <button onclick="goPrevHeroSlide(0)" class="prev-slide-tab text-left p-1.5 rounded border text-xs transition" style="background:rgba(248,246,240,0.14); border-color:rgba(217,203,184,0.6); color:#F8F6F0;">
+                <div class="onda-serif font-bold" style="color:#D9CBB8;">01. ONDA WAVE</div>
+                <div class="truncate" style="font-size:11px;">윤슬과 크리스탈 잔향</div>
+              </button>
+              <button onclick="goPrevHeroSlide(1)" class="prev-slide-tab text-left p-1.5 rounded border text-xs transition" style="background:rgba(19,28,39,0.35); border-color:rgba(248,246,240,0.15); color:rgba(248,246,240,0.65);">
+                <div class="onda-serif font-bold" style="color:#D9CBB8;">02. BESPOKE</div>
+                <div class="truncate" style="font-size:11px;">1:1 조향 아틀리에</div>
+              </button>
+              <button onclick="goPrevHeroSlide(2)" class="prev-slide-tab text-left p-1.5 rounded border text-xs transition" style="background:rgba(19,28,39,0.35); border-color:rgba(248,246,240,0.15); color:rgba(248,246,240,0.65);">
+                <div class="onda-serif font-bold" style="color:#D9CBB8;">03. COLLECTION</div>
+                <div class="truncate" style="font-size:11px;">시그니처 오드퍼퓸</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Synchronized Photorealistic Slide Frame -->
+          <div class="md:col-span-5">
+            <div class="p-2 rounded-lg border shadow-xl" style="background:rgba(19,28,39,0.68); border-color:rgba(217,203,184,0.42); backdrop-filter:blur(10px);">
+              <div class="overflow-hidden rounded relative" style="aspect-ratio: 16 / 10.5;">
+                <div id="prevHeroCardTrack" class="slide-track-smooth">
+                  <div class="slide-item-full">
+                    <img src="./assets/images/hero_slide_1.jpg" alt="Slide 1" class="w-full h-full object-cover" />
+                    <div class="absolute inset-x-2 bottom-2 p-2 rounded text-xs" style="background:rgba(19,28,39,0.84); border:1px solid rgba(217,203,184,0.3);">
+                      <div class="onda-serif font-bold" style="color:#D9CBB8;">SLIDE 01 · ONDA &amp; YUNSEUL 50ml</div>
+                      <div style="font-size:11px; color:#F8F6F0;">영일대 바다 햇살을 머금은 시그니처 크리스탈 보틀</div>
+                    </div>
+                  </div>
+                  <div class="slide-item-full">
+                    <img src="./assets/images/hero_slide_2.jpg" alt="Slide 2" class="w-full h-full object-cover" />
+                    <div class="absolute inset-x-2 bottom-2 p-2 rounded text-xs" style="background:rgba(19,28,39,0.84); border:1px solid rgba(217,203,184,0.3);">
+                      <div class="onda-serif font-bold" style="color:#D9CBB8;">SLIDE 02 · PRIVATE ORGAN</div>
+                      <div style="font-size:11px; color:#F8F6F0;">120여 종 향료 오르간과 자연광 원목 조향 테이블</div>
+                    </div>
+                  </div>
+                  <div class="slide-item-full">
+                    <img src="./assets/images/hero_slide_3.jpg" alt="Slide 3" class="w-full h-full object-cover" />
+                    <div class="absolute inset-x-2 bottom-2 p-2 rounded text-xs" style="background:rgba(19,28,39,0.84); border:1px solid rgba(217,203,184,0.3);">
+                      <div class="onda-serif font-bold" style="color:#D9CBB8;">SLIDE 03 · SIGNATURE COLLECTION</div>
+                      <div style="font-size:11px; color:#F8F6F0;">오 드 퍼퓸 &amp; 홈 프래그런스 오브제 컬렉션</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between pt-2 px-1 text-xs">
+                <span id="prevSlideCounter" class="onda-serif font-bold" style="color:#D9CBB8;">01 / 03 · ONDA WAVE</span>
+                <div class="flex gap-1.5">
+                  <button onclick="stepPrevHeroSlide(-1)" class="px-2 py-0.5 rounded border text-xs" style="border-color:rgba(217,203,184,0.45); color:#F8F6F0;">&larr; 이전</button>
+                  <button onclick="stepPrevHeroSlide(1)" class="px-2 py-0.5 rounded border text-xs" style="border-color:rgba(217,203,184,0.45); color:#F8F6F0;">다음 &rarr;</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photorealistic Perfume Lineup Strip on Home -->
+      <div class="p-4" style="background-color:#F8F6F0;">
+        <div class="flex items-center justify-between mb-2.5">
+          <div>
+            <span class="text-xs font-bold tracking-wider" style="color:#6E7B6E;">PHOTOREALISTIC SIGNATURE LINEUP</span>
+            <h3 class="onda-serif font-bold text-sm" style="color:#1D2A3A;">각 파트별 실사 향수 &amp; 프래그런스 컬렉션</h3>
+          </div>
+          <button onclick="switchTab('shop')" class="text-xs font-semibold underline" style="color:#1D2A3A;">온라인 스토어 전체 보기 &rarr;</button>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2.5">
+          <div onclick="switchTab('shop')" class="cursor-pointer rounded-lg overflow-hidden border transition hover:shadow-md" style="background-color:#FDFCF9; border-color:rgba(29,42,58,0.12);">
+            <img src="./assets/images/perfume_yunseul.jpg" alt="윤슬 50ml 실사" class="w-full h-28 object-cover" />
+            <div class="p-2">
+              <div class="text-xs font-bold" style="color:#1D2A3A;">윤슬 (YUNSEUL) 50ml</div>
+              <div class="text-xs" style="color:#6E7B6E;">베르가못 · 화이트티 · 시더우드</div>
+            </div>
+          </div>
+
+          <div onclick="switchTab('shop')" class="cursor-pointer rounded-lg overflow-hidden border transition hover:shadow-md" style="background-color:#FDFCF9; border-color:rgba(29,42,58,0.12);">
+            <img src="./assets/images/perfume_onda.jpg" alt="파도 50ml 실사" class="w-full h-28 object-cover" />
+            <div class="p-2">
+              <div class="text-xs font-bold" style="color:#1D2A3A;">파도 (ONDA) 50ml</div>
+              <div class="text-xs" style="color:#6E7B6E;">무화과 잎 · 마린 · 베티버</div>
+            </div>
+          </div>
+
+          <div onclick="switchTab('shop')" class="cursor-pointer rounded-lg overflow-hidden border transition hover:shadow-md" style="background-color:#FDFCF9; border-color:rgba(29,42,58,0.12);">
+            <img src="./assets/images/perfume_warmsand_pine.jpg" alt="모래의 온기 & 해송의 숲 실사" class="w-full h-28 object-cover" />
+            <div class="p-2">
+              <div class="text-xs font-bold" style="color:#1D2A3A;">모래의 온기 &amp; 해송의 숲</div>
+              <div class="text-xs" style="color:#6E7B6E;">아이리스 · 샌달우드 · 편백</div>
+            </div>
+          </div>
+
+          <div onclick="switchTab('shop')" class="cursor-pointer rounded-lg overflow-hidden border transition hover:shadow-md" style="background-color:#FDFCF9; border-color:rgba(29,42,58,0.12);">
+            <img src="./assets/images/fragrance_home_set.jpg" alt="홈 프래그런스 실사" class="w-full h-28 object-cover" />
+            <div class="p-2">
+              <div class="text-xs font-bold" style="color:#1D2A3A;">영일대의 밤 디퓨저 세트</div>
+              <div class="text-xs" style="color:#6E7B6E;">프렌치 라벤더 · 편백 · 룸스프레이</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 2: PROGRAM & 예약 (프로그램 안내 창 + 실시간 예약 통합) ==================== -->
+    <div id="tab-program" class="tab-pane p-4">
+      <div class="flex items-center justify-between flex-wrap gap-2 mb-3 pb-2.5 border-b" style="border-color:rgba(29,42,58,0.12);">
+        <div>
+          <span class="text-xs font-bold tracking-wider" style="color:#6E7B6E;">CURATED PROGRAM GUIDE</span>
+          <h3 class="onda-serif text-base font-semibold" style="color:#1D2A3A;">카테고리별 프로그램 상세 안내 &amp; 잔여석 예약</h3>
+        </div>
+        <div class="flex gap-1.5 flex-wrap">
+          <button onclick="selectProgramCategory(0, this)" class="prog-cat-btn px-3 py-1 rounded-full text-xs font-semibold border" style="background-color:#1D2A3A; color:#F8F6F0; border-color:#1D2A3A;">01. 시그니처 퍼퓸 원데이</button>
+          <button onclick="selectProgramCategory(1, this)" class="prog-cat-btn px-3 py-1 rounded-full text-xs font-semibold border" style="background-color:#FDFCF9; color:#4E5B6B; border-color:rgba(29,42,58,0.2);">02. 공간 향기 (디퓨저·룸스프레이)</button>
+          <button onclick="selectProgramCategory(2, this)" class="prog-cat-btn px-3 py-1 rounded-full text-xs font-semibold border" style="background-color:#FDFCF9; color:#4E5B6B; border-color:rgba(29,42,58,0.2);">03. 정규반 &amp; 기업/단체 워크숍</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5">
+        <div class="md:col-span-7 p-3.5 rounded-lg border" style="background-color:#FDFCF9; border-color:rgba(29,42,58,0.15);">
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 mb-2.5 items-center">
+            <div class="sm:col-span-5 overflow-hidden rounded border" style="border-color:rgba(29,42,58,0.12);">
+              <img id="progPhotoImg" src="./assets/images/hero_slide_2.jpg" alt="프로그램 실사" class="w-full h-28 object-cover" />
+            </div>
+            <div class="sm:col-span-7">
+              <div class="flex justify-between items-start mb-1">
+                <span id="progMetaBadge" class="text-xs font-semibold" style="color:#6E7B6E;">소요시간 90분 · 정원 최대 6명</span>
+                <span id="progPrice" class="font-bold text-sm" style="color:#1D2A3A;">65,000원</span>
+              </div>
+              <h4 id="progTitle" class="onda-serif font-bold text-sm mb-1.5" style="color:#1D2A3A;">나만의 시그니처 향수 원데이 클래스 (50ml)</h4>
+              <p id="progRecommend" class="text-xs px-2 py-1 rounded" style="background-color:#F1EDE2; color:#1D2A3A;">
+                <strong>추천:</strong> 포항 영일대 커플 데이트, 나만의 시그니처 살결 향수 제작
+              </p>
+            </div>
+          </div>
+
+          <div class="text-xs font-bold mb-1.5" style="color:#1D2A3A;">시간대별 커리큘럼 구성</div>
+          <div id="progTimelineList" class="space-y-1.5 text-xs mb-2.5">
+            <div class="p-2 rounded border-l-2" style="background-color:#F8F6F0; border-color:#1D2A3A;">
+              <strong style="color:#6E7B6E;">00–20분</strong> · <strong>웰컴 티 &amp; 올팩션 시향</strong>: 30여 종 핵심 베이스 향료 시향 및 취향 분석
+            </div>
+            <div class="p-2 rounded border-l-2" style="background-color:#F8F6F0; border-color:#1D2A3A;">
+              <strong style="color:#6E7B6E;">20–50분</strong> · <strong>포뮬러 설계 &amp; 샘플링</strong>: Top · Middle · Base 비율 설계 및 1차 시향
+            </div>
+            <div class="p-2 rounded border-l-2" style="background-color:#F8F6F0; border-color:#1D2A3A;">
+              <strong style="color:#6E7B6E;">50–90분</strong> · <strong>본품 50ml 조향 &amp; 각인 패키징</strong>: 커스텀 라벨 인쇄, 리넨 파우치 포장 및 포토존 촬영
+            </div>
+          </div>
+
+          <div id="progIncludes" class="flex flex-wrap gap-1 text-xs">
+            <span class="px-2 py-0.5 rounded" style="background-color:#E9ECE8; color:#1D2A3A;">✓ 오드퍼퓸 50ml 본품</span>
+            <span class="px-2 py-0.5 rounded" style="background-color:#E9ECE8; color:#1D2A3A;">✓ 무료 보틀 각인</span>
+            <span class="px-2 py-0.5 rounded" style="background-color:#E9ECE8; color:#1D2A3A;">✓ 레시피 영구 보관</span>
+          </div>
+        </div>
+
+        <div class="md:col-span-5 p-3.5 rounded-lg border flex flex-col justify-between" style="background-color:#F1EDE2; border-color:rgba(29,42,58,0.15);">
+          <div>
+            <div class="onda-serif font-semibold text-sm mb-2">실시간 타임슬롯 선택 (10월 24일 토)</div>
+            <div class="grid grid-cols-3 gap-1.5 mb-3">
+              <button onclick="selectPreviewSlot('11:00', this)" class="slot-pill p-2 rounded border text-xs text-center" style="background-color:#FDFCF9; border-color:rgba(29,42,58,0.2);">
+                <div class="font-bold">11:00</div>
+                <div class="text-xs" style="color:#6E7B6E;">잔여 3석</div>
+              </button>
+              <button onclick="selectPreviewSlot('14:00', this)" class="slot-pill p-2 rounded border text-xs text-center" style="background-color:#1D2A3A; color:#F8F6F0; border-color:#1D2A3A;">
+                <div class="font-bold">14:00</div>
+                <div class="text-xs" style="color:#D9CBB8;">잔여 2석</div>
+              </button>
+              <button onclick="selectPreviewSlot('17:00', this)" class="slot-pill p-2 rounded border text-xs text-center" style="background-color:#FDFCF9; border-color:rgba(29,42,58,0.2);">
+                <div class="font-bold">17:00</div>
+                <div class="text-xs" style="color:#6E7B6E;">잔여 4석</div>
+              </button>
+            </div>
+            <div class="text-xs space-y-1 p-2.5 rounded border mb-2.5" style="background-color:#FDFCF9; border-color:rgba(29,42,58,0.1);">
+              <div class="flex justify-between">
+                <span>선택 프로그램</span>
+                <strong id="bookSummaryProg">시그니처 퍼퓸 원데이</strong>
+              </div>
+              <div class="flex justify-between">
+                <span>예약 일시</span>
+                <strong id="selectedScheduleText">10월 24일 · 14:00 타임</strong>
+              </div>
+              <div class="flex justify-between font-bold pt-1 border-t" style="border-color:rgba(29,42,58,0.1);">
+                <span>예약금 결제 (2인 기준)</span>
+                <span>40,000원</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="triggerPreviewNotice('예약이 확정되었으며 카카오 알림톡이 발송되었습니다!')" class="w-full py-2 rounded text-xs font-semibold" style="background-color:#1D2A3A; color:#F8F6F0;">
+            이 프로그램 실시간 예약 확정하기
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 3: SHOP (Photorealistic Perfume Studio & Scent Pyramid) ==================== -->
+    <div id="tab-shop" class="tab-pane p-4">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+        <div class="md:col-span-5 p-3 rounded-lg border text-center" style="background-color:#FDFCF9; border-color:rgba(29,42,58,0.15);">
+          <div class="overflow-hidden rounded mb-2 border" style="border-color:rgba(29,42,58,0.1);">
+            <img id="shopPreviewImg" src="./assets/images/perfume_yunseul.jpg" alt="향수 실사 이미지" class="w-full h-40 object-cover" />
+          </div>
+          <div class="p-2 rounded border mx-auto" style="background-color:#F8F6F0; border-color:#1D2A3A;">
+            <div class="text-xs tracking-widest" style="color:#7C8794;">LIVE BOTTLE LABEL ENGRAVING</div>
+            <div id="shopSelectedName" class="onda-serif font-bold text-xs my-0.5" style="color:#1D2A3A;">윤슬 (YUNSEUL) 50ml</div>
+            <div id="liveEngraveOut" class="px-2 py-0.5 rounded font-mono text-xs font-semibold inline-block" style="background-color:#D9CBB8; color:#131C27;">
+              Onda de Pohang
+            </div>
+          </div>
+          <div class="mt-2 text-left">
+            <input type="text" value="Onda de Pohang" maxlength="18" placeholder="보틀 각인 문구 입력" oninput="document.getElementById('liveEngraveOut').textContent = this.value || 'ONDA BESPOKE'" class="w-full px-2.5 py-1 rounded border text-xs" style="background-color:#fff; border-color:rgba(29,42,58,0.25);" />
+          </div>
+        </div>
+
+        <div class="md:col-span-7 p-3.5 rounded-lg border" style="background-color:#FDFCF9; border-color:rgba(29,42,58,0.15);">
+          <div class="text-xs font-semibold mb-1.5" style="color:#6E7B6E;">SELECT SIGNATURE SCENT (실사 보틀 전환)</div>
+          <div class="flex gap-1.5 mb-3 flex-wrap">
+            <button onclick="selectPreviewProduct('윤슬 (YUNSEUL) 50ml', '78,000원', 'Italian Bergamot, Lemon Zest, Sea Salt', 'White Tea, Neroli Blossom, Freesia', 'Atlas Cedarwood, Clean Skin Musk, Ambergris', './assets/images/perfume_yunseul.jpg', this)" class="prod-tab-btn px-2.5 py-1 rounded text-xs font-semibold border" style="background-color:#1D2A3A; color:#F8F6F0;">윤슬 (YUNSEUL)</button>
+            <button onclick="selectPreviewProduct('파도 (ONDA) 50ml', '78,000원', 'Crushed Fig Leaf, Cold Marine Accord', 'Water Lily, Clary Sage, Hinoki Leaf', 'Haitian Vetiver, Oakmoss, Mineral Amber', './assets/images/perfume_onda.jpg', this)" class="prod-tab-btn px-2.5 py-1 rounded text-xs font-semibold border" style="border-color:rgba(29,42,58,0.2);">파도 (ONDA)</button>
+            <button onclick="selectPreviewProduct('모래의 온기 (WARM SAND)', '82,000원', 'Cardamom, Soft Almond, Mandarin', 'Florentine Iris, Orris, Heliotrope', 'Australian Sandalwood, Cashmere Musk', './assets/images/perfume_warmsand_pine.jpg', this)" class="prod-tab-btn px-2.5 py-1 rounded text-xs font-semibold border" style="border-color:rgba(29,42,58,0.2);">모래의 온기 &amp; 해송</button>
+            <button onclick="selectPreviewProduct('영일대의 밤 디퓨저 &amp; 스프레이', '54,000원', 'French Lavender, Bergamot Leaf', 'Clary Sage, Geranium, Sweet Marjoram', 'Hinoki Wood, Guaic Wood, Soft Amber', './assets/images/fragrance_home_set.jpg', this)" class="prod-tab-btn px-2.5 py-1 rounded text-xs font-semibold border" style="border-color:rgba(29,42,58,0.2);">영일대의 밤 홈세트</button>
+          </div>
+
+          <div class="text-xs font-bold mb-1.5" style="color:#6E7B6E;">SCENT PYRAMID (향조 피라미드 시각화)</div>
+          <div class="space-y-1.5 text-xs mb-3 p-2.5 rounded" style="background-color:#F8F6F0;">
+            <div class="flex gap-2">
+              <strong class="w-20 shrink-0" style="color:#1D2A3A;">▲ TOP</strong>
+              <span id="pyrTop" style="color:#4E5B6B;">Italian Bergamot, Lemon Zest, Sea Salt</span>
+            </div>
+            <div class="flex gap-2 border-t pt-1.5" style="border-color:rgba(29,42,58,0.1);">
+              <strong class="w-20 shrink-0" style="color:#1D2A3A;">◆ MIDDLE</strong>
+              <span id="pyrMid" style="color:#4E5B6B;">White Tea, Neroli Blossom, Freesia</span>
+            </div>
+            <div class="flex gap-2 border-t pt-1.5" style="border-color:rgba(29,42,58,0.1);">
+              <strong class="w-20 shrink-0" style="color:#1D2A3A;">■ BASE</strong>
+              <span id="pyrBase" style="color:#4E5B6B;">Atlas Cedarwood, Clean Skin Musk, Ambergris</span>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <span id="shopSelectedPrice" class="font-bold text-sm" style="color:#1D2A3A;">78,000원 (무료 각인 포함)</span>
+            <button onclick="triggerPreviewNotice('장바구니에 각인 옵션과 함께 담겼습니다!')" class="px-4 py-2 rounded text-xs font-semibold" style="background-color:#03C75A; color:#fff;">
+              N Pay 구매 / 장바구니 담기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 4: REVIEW & 저널 (리뷰 남기기 창 + 카테고리별 후기) ==================== -->
+    <div id="tab-review" class="tab-pane p-4">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5">
+        <form onsubmit="submitPreviewReview(event)" class="md:col-span-6 p-3.5 rounded-lg border" style="background-color:#FDFCF9; border-color:rgba(29,42,58,0.2);">
+          <div class="flex items-center justify-between mb-2">
+            <span class="onda-serif font-bold text-sm" style="color:#1D2A3A;">&#9998; 나만의 향기 리뷰 &amp; 레시피 남기기</span>
+            <span class="text-xs font-semibold" style="color:#6E7B6E;">+3,000P 적립</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 mb-2">
+            <div>
+              <label class="block text-xs font-semibold mb-1">카테고리 분류</label>
+              <select id="prevRevCat" class="w-full px-2 py-1.5 rounded border text-xs" style="background-color:#F8F6F0; border-color:rgba(29,42,58,0.2);">
+                <option value="클래스 후기">클래스 수강 후기</option>
+                <option value="스토어 후기">스토어 구매 후기</option>
+                <option value="단체 워크숍">단체 워크숍 후기</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold mb-1">만족도 별점</label>
+              <div class="flex items-center gap-1 px-2 py-1 rounded border" style="background-color:#F8F6F0; border-color:rgba(29,42,58,0.15);">
+                <button type="button" onclick="setPrevStars(1)" class="prev-star text-sm font-bold" style="color:#1D2A3A;">★</button>
+                <button type="button" onclick="setPrevStars(2)" class="prev-star text-sm font-bold" style="color:#1D2A3A;">★</button>
+                <button type="button" onclick="setPrevStars(3)" class="prev-star text-sm font-bold" style="color:#1D2A3A;">★</button>
+                <button type="button" onclick="setPrevStars(4)" class="prev-star text-sm font-bold" style="color:#1D2A3A;">★</button>
+                <button type="button" onclick="setPrevStars(5)" class="prev-star text-sm font-bold" style="color:#1D2A3A;">★</button>
+                <span id="prevStarLabel" class="text-xs ml-1 font-semibold">5.0</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 mb-2">
+            <input type="text" id="prevRevName" placeholder="닉네임 (예: 박*하) *" required class="px-2.5 py-1.5 rounded border text-xs" style="background-color:#fff; border-color:rgba(29,42,58,0.2);" />
+            <input type="text" id="prevRevFormula" placeholder="향수 이름/노트 (예: 윤슬의 오후)" class="px-2.5 py-1.5 rounded border text-xs" style="background-color:#fff; border-color:rgba(29,42,58,0.2);" />
+          </div>
+
+          <textarea id="prevRevContent" rows="2" placeholder="공방에서의 조향 경험이나 잔향에 대한 소감을 남겨주세요 *" required class="w-full px-2.5 py-1.5 rounded border text-xs mb-2" style="background-color:#fff; border-color:rgba(29,42,58,0.2);"></textarea>
+
+          <button type="submit" class="w-full py-2 rounded text-xs font-semibold" style="background-color:#1D2A3A; color:#F8F6F0;">
+            향기 리뷰 등록하기 &rarr;
+          </button>
+        </form>
+
+        <div class="md:col-span-6 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold" style="color:#1D2A3A;">실시간 등록 후기 아카이브</span>
+              <span class="text-xs" style="color:#6E7B6E;">평균 ★ 4.98</span>
+            </div>
+            <div id="prevReviewList" class="space-y-2 max-h-[210px] overflow-y-auto pr-1">
+              <div class="p-3 rounded-lg border text-xs" style="background-color:#FDFCF9; border-color:rgba(29,42,58,0.12);">
+                <div class="flex justify-between items-center mb-1">
+                  <strong style="color:#1D2A3A;">★★★★★ · 김*연 님</strong>
+                  <span class="px-2 py-0.5 rounded-full text-xs" style="background-color:#F1EDE2;">클래스 후기</span>
+                </div>
+                <p class="mb-1" style="color:#4E5B6B;">“리뉴얼된 온다 향방 공간이 정말 차분하고 예뻐요! 조향사님이 취향을 섬세하게 잡아주셔서 인생 향수 만들었습니다.”</p>
+                <div style="color:#6E7B6E; font-weight:600;">• 레시피: "영일대 윤슬" (베르가못 + 화이트티 + 시더우드)</div>
+              </div>
+
+              <div class="p-3 rounded-lg border text-xs" style="background-color:#FDFCF9; border-color:rgba(29,42,58,0.12);">
+                <div class="flex justify-between items-center mb-1">
+                  <strong style="color:#1D2A3A;">★★★★★ · 이*현 님</strong>
+                  <span class="px-2 py-0.5 rounded-full text-xs" style="background-color:#F1EDE2;">스토어 후기</span>
+                </div>
+                <p class="mb-1" style="color:#4E5B6B;">“시향 없이 온라인으로 윤슬 본품을 샀는데 설명 그대로 햇살 비치는 바닷가에서 맑은 홍차를 마시는 기분이에요.”</p>
+                <div style="color:#6E7B6E; font-weight:600;">• 선택 향조: 시그니처 윤슬 (YUNSEUL) 50ml</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 5: ABOUT & 오시는길 (통합 뷰) ==================== -->
+    <div id="tab-about" class="tab-pane p-4">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+        <div class="md:col-span-6 p-3.5 rounded-lg border" style="background-color:#FDFCF9; border-color:rgba(29,42,58,0.12);">
+          <div class="text-xs font-semibold mb-1" style="color:#6E7B6E;">ABOUT ONDA · 브랜드 철학 &amp; 컬러</div>
+          <h3 class="onda-serif font-bold text-sm mb-1.5" style="color:#1D2A3A;">스페인어 ‘파도(Onda)’, 나에게로 향기가 온다</h3>
+          <p class="text-xs leading-relaxed mb-2.5" style="color:#4E5B6B;">
+            프랑스 그라스산 천연 에센셜 오일과 IFRA 안전 등급 향료만을 사용하여 살결에 편안하게 스며드는 잔향을 설계합니다. 모든 수강생의 레시피는 영구 보관됩니다.
+          </p>
+          <div class="grid grid-cols-4 gap-1.5 text-center text-xs">
+            <div class="p-1.5 rounded" style="background:#1D2A3A; color:#F8F6F0;">Navy</div>
+            <div class="p-1.5 rounded border" style="background:#F8F6F0; color:#1D2A3A;">Ivory</div>
+            <div class="p-1.5 rounded" style="background:#D9CBB8; color:#1D2A3A;">Sand</div>
+            <div class="p-1.5 rounded" style="background:#9EA89E; color:#1D2A3A;">Sage</div>
+          </div>
+        </div>
+
+        <div class="md:col-span-6 p-3.5 rounded-lg" style="background-color:#1D2A3A; color:#F8F6F0;">
+          <div class="text-xs font-semibold mb-1" style="color:#D9CBB8;">VISIT &amp; CONTACT · 영일대 오시는 길</div>
+          <div class="onda-serif text-sm font-semibold mb-1.5">경북 포항시 북구 해안로 189번길 14, 2층 온다 향방</div>
+          <p class="text-xs leading-relaxed mb-2.5" style="color:rgba(248,246,240,0.82);">
+            • 영일대 해수욕장 해상누각 맞은편 도보 3분<br />
+            • 주차: 영일대 제1공영주차장 (수강생 1시간 주차권 지원)<br />
+            • 화–일 11:00–20:00 (월요일 정기 휴무 · 100% 사전 예약제)
+          </p>
+          <div class="flex gap-2">
+            <button onclick="triggerPreviewNotice('도로명 주소가 복사되었습니다.')" class="px-3 py-1 rounded text-xs font-semibold" style="background-color:#D9CBB8; color:#131C27;">주소 복사</button>
+            <button onclick="triggerPreviewNotice('카카오톡 채널 1:1 상담 창으로 연결합니다.')" class="px-3 py-1 rounded text-xs font-semibold border" style="border-color:rgba(248,246,240,0.4); color:#F8F6F0;">카카오톡 1:1 문의</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const PREVIEW_HERO_SLIDES = [
+      {
+        badge: '01. CRYSTAL LIGHT · 햇살과 향기가 머무는 시간',
+        title: '바다가 보내온 쉼,<br />나만의 향기가 온다',
+        desc: '영일대 파도 곁에서 마주하는 온전한 나만의 향. 120여 가지 자연의 향료와 아날로그 조향 오르간 앞에서 당신의 계절을 기록하세요.',
+        counter: '01 / 03 · ONDA WAVE'
+      },
+      {
+        badge: '02. BESPOKE CLASS · 1:1 프라이빗 조향 아틀리에',
+        title: '창가에 스미는 윤슬,<br />프라이빗 조향 아틀리에',
+        desc: '올팩션 테스트부터 포뮬러 설계, 시향 및 보틀 각인까지. 조향사의 1:1 가이드와 함께 세상에 단 하나뿐인 시그니처 퍼퓸을 완성합니다.',
+        counter: '02 / 03 · BESPOKE CLASS'
+      },
+      {
+        badge: '03. SIGNATURE SCENT · 포항의 사계절을 담은 향기',
+        title: '포항의 사계절을 담은<br />시그니처 프래그런스',
+        desc: '시향 없이도 눈앞에 그려지는 감성 노트와 Scent Pyramid. 온다 향방의 시그니처 오 드 퍼퓸과 디퓨저를 온라인 스토어에서 만나보세요.',
+        counter: '03 / 03 · SIGNATURE SCENT'
+      }
+    ];
+
+    const PREVIEW_PROGRAMS = [
+      {
+        meta: '소요시간 90분 · 정원 최대 6명',
+        title: '나만의 시그니처 향수 원데이 클래스 (50ml)',
+        shortName: '시그니처 퍼퓸 원데이',
+        price: '65,000원',
+        img: './assets/images/hero_slide_2.jpg',
+        recommend: '<strong>추천:</strong> 포항 영일대 커플 데이트, 나만의 시그니처 살결 향수 제작',
+        timeline: [
+          ['00–20분', '웰컴 티 & 올팩션 시향', '30여 종 핵심 베이스 향료 시향 및 취향 분석'],
+          ['20–50분', '포뮬러 설계 & 샘플링', 'Top · Middle · Base 비율 설계 및 1차 시향'],
+          ['50–90분', '본품 50ml 조향 & 각인 패키징', '커스텀 라벨 인쇄, 리넨 파우치 포장 및 포토존 촬영']
+        ],
+        includes: ['✓ 오드퍼퓸 50ml 본품', '✓ 무료 보틀 각인', '✓ 레시피 영구 보관']
+      },
+      {
+        meta: '소요시간 70분 · 정원 최대 6명',
+        title: '공간 향기 클래스 (디퓨저 150ml + 룸스프레이 100ml)',
+        shortName: '공간 향기 (디퓨저·룸스프레이)',
+        price: '58,000원',
+        img: './assets/images/fragrance_home_set.jpg',
+        recommend: '<strong>추천:</strong> 신혼부부·집들이 선물 제작, 침실·서재 무드 체인지',
+        timeline: [
+          ['00–15분', '공간별 향기 큐레이션', '침실(릴랙싱)·거실(리프레시) 목적별 아로마 시향'],
+          ['15–45분', '듀얼 포뮬러 블렌딩', '곡물 발효 베이스로 디퓨저 & 패브릭 스프레이 각각 조향'],
+          ['45–70분', '오브제 스타일링 & 포장', '리드 스틱 매칭 및 기프트 박스 패키징']
+        ],
+        includes: ['✓ 디퓨저 150ml', '✓ 룸스프레이 100ml', '✓ 기프트 박스 포함']
+      },
+      {
+        meta: '4주 정규 (주 1회 120분) / 기업·단체 맞춤',
+        title: '조향 취미/정규 과정 & 프라이빗 그룹 워크숍',
+        shortName: '정규반 & 단체 워크숍',
+        price: '260,000원',
+        img: './assets/images/hero_slide_3.jpg',
+        recommend: '<strong>추천:</strong> 깊이 있는 조향 취미생, 기업 팀빌딩 및 단체 출강 워크숍',
+        timeline: [
+          ['Week 01–02', '시트러스·마린 & 플로럴 어코드', '천연 에센셜 오일 휘발도와 노트 밸런스 실습'],
+          ['Week 03–04', '우디·머스크 & 시그니처 창작', '120여 종 전체 오르간을 활용한 나만의 창작 조향'],
+          ['단체 워크숍', '공방 단독 대관 또는 방문 출강', '기업 로고/행사명 커스텀 보틀 라벨 제작 지원']
+        ],
+        includes: ['✓ 총 4병 향수 제작', '✓ 조향 워크북 제공', '✓ 기업 세금계산서 지원']
+      }
+    ];
+
+    let prevHeroIdx = 0;
+    let currentSlot = '14:00';
+    let currentStarScore = 5;
+
+    function goPrevHeroSlide(idx) {
+      const total = PREVIEW_HERO_SLIDES.length;
+      prevHeroIdx = ((idx % total) + total) % total;
+      const s = PREVIEW_HERO_SLIDES[prevHeroIdx];
+
+      const bgTrack = document.getElementById('prevHeroBgTrack');
+      const cardTrack = document.getElementById('prevHeroCardTrack');
+      if (bgTrack) bgTrack.style.transform = `translate3d(-${prevHeroIdx * 100}%, 0, 0)`;
+      if (cardTrack) cardTrack.style.transform = `translate3d(-${prevHeroIdx * 100}%, 0, 0)`;
+
+      document.getElementById('prevHeroBadge').textContent = s.badge;
+      document.getElementById('prevHeroTitle').innerHTML = s.title;
+      document.getElementById('prevHeroDesc').textContent = s.desc;
+      document.getElementById('prevSlideCounter').textContent = s.counter;
+
+      document.querySelectorAll('.prev-slide-tab').forEach((btn, i) => {
+        if (i === prevHeroIdx) {
+          btn.style.background = 'rgba(248,246,240,0.14)';
+          btn.style.borderColor = 'rgba(217,203,184,0.6)';
+          btn.style.color = '#F8F6F0';
+        } else {
+          btn.style.background = 'rgba(19,28,39,0.35)';
+          btn.style.borderColor = 'rgba(248,246,240,0.15)';
+          btn.style.color = 'rgba(248,246,240,0.65)';
+        }
+      });
+    }
+
+    function stepPrevHeroSlide(delta) {
+      goPrevHeroSlide(prevHeroIdx + delta);
+    }
+
+    setInterval(() => {
+      stepPrevHeroSlide(1);
+    }, 5500);
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+      const target = document.getElementById('tab-' + tabId);
+      if (target) target.classList.add('active');
+
+      document.querySelectorAll('.nav-pill').forEach(btn => {
+        btn.style.backgroundColor = 'transparent';
+        btn.style.color = '#4E5B6B';
+      });
+      const activeNav = document.getElementById('nav-' + tabId);
+      if (activeNav) {
+        activeNav.style.backgroundColor = '#1D2A3A';
+        activeNav.style.color = '#F8F6F0';
+      }
+    }
+
+    function selectProgramCategory(idx, btn) {
+      document.querySelectorAll('.prog-cat-btn').forEach(b => {
+        b.style.backgroundColor = '#FDFCF9';
+        b.style.color = '#4E5B6B';
+        b.style.borderColor = 'rgba(29,42,58,0.2)';
+      });
+      btn.style.backgroundColor = '#1D2A3A';
+      btn.style.color = '#F8F6F0';
+      btn.style.borderColor = '#1D2A3A';
+
+      const p = PREVIEW_PROGRAMS[idx];
+      document.getElementById('progMetaBadge').textContent = p.meta;
+      document.getElementById('progTitle').textContent = p.title;
+      document.getElementById('progPrice').textContent = p.price;
+      document.getElementById('progPhotoImg').src = p.img;
+      document.getElementById('progRecommend').innerHTML = p.recommend;
+      document.getElementById('bookSummaryProg').textContent = p.shortName;
+
+      document.getElementById('progTimelineList').innerHTML = p.timeline.map(t => `
+        <div class="p-2 rounded border-l-2" style="background-color:#F8F6F0; border-color:#1D2A3A;">
+          <strong style="color:#6E7B6E;">${t[0]}</strong> · <strong>${t[1]}</strong>: ${t[2]}
+        </div>
+      `).join('');
+
+      document.getElementById('progIncludes').innerHTML = p.includes.map(inc => `
+        <span class="px-2 py-0.5 rounded" style="background-color:#E9ECE8; color:#1D2A3A;">${inc}</span>
+      `).join('');
+    }
+
+    function selectPreviewSlot(slot, btn) {
+      currentSlot = slot;
+      document.querySelectorAll('.slot-pill').forEach(b => {
+        b.style.backgroundColor = '#FDFCF9';
+        b.style.color = '#1D2A3A';
+      });
+      btn.style.backgroundColor = '#1D2A3A';
+      btn.style.color = '#F8F6F0';
+      document.getElementById('selectedScheduleText').textContent = `10월 24일 · ${currentSlot} 타임`;
+    }
+
+    function selectPreviewProduct(name, price, top, mid, base, imgSrc, btn) {
+      document.getElementById('shopSelectedName').textContent = name;
+      document.getElementById('shopSelectedPrice').textContent = price + ' (무료 각인 포함)';
+      document.getElementById('pyrTop').textContent = top;
+      document.getElementById('pyrMid').textContent = mid;
+      document.getElementById('pyrBase').textContent = base;
+      if (imgSrc) document.getElementById('shopPreviewImg').src = imgSrc;
+
+      if (btn) {
+        document.querySelectorAll('.prod-tab-btn').forEach(b => {
+          b.style.backgroundColor = 'transparent';
+          b.style.color = '#1D2A3A';
+        });
+        btn.style.backgroundColor = '#1D2A3A';
+        btn.style.color = '#F8F6F0';
+      }
+    }
+
+    function setPrevStars(score) {
+      currentStarScore = score;
+      document.querySelectorAll('.prev-star').forEach((btn, idx) => {
+        btn.style.color = idx < score ? '#1D2A3A' : '#D1CBC0';
+      });
+      document.getElementById('prevStarLabel').textContent = score + '.0';
+    }
+
+    function submitPreviewReview(e) {
+      e.preventDefault();
+      const cat = document.getElementById('prevRevCat').value;
+      const name = document.getElementById('prevRevName').value.trim();
+      const formula = document.getElementById('prevRevFormula').value.trim();
+      const content = document.getElementById('prevRevContent').value.trim();
+      const stars = '★'.repeat(currentStarScore) + '☆'.repeat(5 - currentStarScore);
+
+      const list = document.getElementById('prevReviewList');
+      const card = document.createElement('div');
+      card.className = 'p-3 rounded-lg border text-xs';
+      card.style.backgroundColor = '#FDFCF9';
+      card.style.borderColor = '#1D2A3A';
+      card.innerHTML = `
+        <div class="flex justify-between items-center mb-1">
+          <strong style="color:#1D2A3A;">${stars} · ${name} 님</strong>
+          <span class="px-2 py-0.5 rounded-full text-xs" style="background-color:#D9CBB8; color:#131C27; font-weight:600;">${cat} · NEW</span>
+        </div>
+        <p class="mb-1" style="color:#4E5B6B;">“${content}”</p>
+        ${formula ? `<div style="color:#6E7B6E; font-weight:600;">• 기록 노트: ${formula}</div>` : ''}
+      `;
+      list.prepend(card);
+      e.target.reset();
+      setPrevStars(5);
+      triggerPreviewNotice('향기 리뷰가 등록되었으며 3,000P가 적립되었습니다!');
+    }
+
+    function triggerPreviewNotice(msg) {
+      const el = document.getElementById('previewToast');
+      el.textContent = msg;
+      el.classList.remove('hidden');
+      setTimeout(() => el.classList.add('hidden'), 2800);
+    }
+
+    // Subtle Crystal Sparkle Canvas in Preview Hero (출렁임 없이 은은한 크리스탈 반짝임)
+    (function initPreviewCrystalCanvas() {
+      const canvas = document.getElementById('previewWaveCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let w = 0, h = 0;
+
+      const crystals = Array.from({ length: 20 }, (_, i) => ({
+        xr: 0.08 + Math.random() * 0.84,
+        yr: 0.14 + Math.random() * 0.72,
+        r: i % 3 === 0 ? 4.8 + Math.random() * 2.5 : 2.6 + Math.random() * 2,
+        p: Math.random() * Math.PI * 2,
+        s: 0.5 + Math.random() * 0.55
+      }));
+
+      function resize() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        w = rect.width || 680;
+        h = rect.height || 260;
+        canvas.width = w;
+        canvas.height = h;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      let t0 = performance.now();
+      function frame(now) {
+        const t = (now - t0) * 0.001;
+        ctx.clearRect(0, 0, w, h);
+
+        crystals.forEach(c => {
+          const wave = (Math.sin(t * c.s + c.p) + 1) * 0.5;
+          const twinkle = Math.pow(wave, 3.0);
+          const alpha = 0.05 + twinkle * 0.55;
+          const x = c.xr * w;
+          const y = c.yr * h;
+
+          // Soft ambient crystal halo
+          const grad = ctx.createRadialGradient(x, y, 0, x, y, c.r * 2);
+          grad.addColorStop(0, `rgba(248, 246, 240, ${(alpha * 0.55).toFixed(2)})`);
+          grad.addColorStop(1, 'rgba(248, 246, 240, 0)');
+          ctx.beginPath();
+          ctx.arc(x, y, c.r * 2, 0, Math.PI * 2);
+          ctx.fillStyle = grad;
+          ctx.fill();
+
+          // 4-point diamond crystal sparkle at peak
+          if (alpha > 0.22) {
+            const ray = c.r * (1.1 + alpha);
+            const th = Math.max(0.5, c.r * 0.16);
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.fillStyle = `rgba(255, 255, 255, ${(alpha * 0.78).toFixed(2)})`;
+            ctx.beginPath();
+            ctx.moveTo(0, -ray);
+            ctx.quadraticCurveTo(th, -th, ray, 0);
+            ctx.quadraticCurveTo(th, th, 0, ray);
+            ctx.quadraticCurveTo(-th, th, -ray, 0);
+            ctx.quadraticCurveTo(-th, -th, 0, -ray);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+          }
+        });
+
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    })();
+  </script>
+</body>
+</html>
+
