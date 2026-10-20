@@ -227,21 +227,54 @@ ul, ol {
 .main-nav {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 22px;
 }
 
 .nav-link {
   position: relative;
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6px 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+.nav-line-1 {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   color: var(--text-secondary);
-  padding: 8px 2px;
+  line-height: 1.25;
+  white-space: nowrap;
   transition: color 0.25s ease;
 }
 
-.nav-link:hover,
-.nav-link.active {
+.nav-line-2 {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  line-height: 1.25;
+  margin-top: 2px;
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+
+.nav-link:hover .nav-line-1,
+.nav-link.active .nav-line-1 {
+  color: var(--color-navy);
+}
+
+.nav-link:hover .nav-line-2,
+.nav-link.active .nav-line-2 {
   color: var(--color-navy);
 }
 
@@ -249,8 +282,8 @@ ul, ol {
   content: '';
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 2px;
+  right: 2px;
   height: 2px;
   background-color: var(--color-navy);
 }
