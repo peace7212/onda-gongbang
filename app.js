@@ -1544,17 +1544,55 @@ async function handleB2bFormSubmit(e) {
   const classType = classTypeInput ? classTypeInput.value : '공방 방문 클래스';
   const locationVal = document.getElementById('b2bLocation') ? document.getElementById('b2bLocation').value.trim() : '';
 
+  const groupNameVal = document.getElementById('b2bGroupName').value.trim();
+  const contactPersonVal = document.getElementById('b2bContactPerson').value.trim();
+  const phoneVal = document.getElementById('b2bPhone').value.trim();
+  const emailVal = document.getElementById('b2bEmail').value.trim();
+  const locationValFinal = classType === '외부 출강' ? locationVal : '포항 온다 공방 방문';
+  const countVal = document.getElementById('b2bExpectedCount').value.trim();
+  const dateVal = document.getElementById('b2bPreferredDate').value.trim();
+  const budgetVal = document.getElementById('b2bBudget').value.trim() || '협의/미정';
+  const messageVal = document.getElementById('b2bMessage').value.trim() || '요청사항 없음';
+
   const payload = {
-    groupName: document.getElementById('b2bGroupName').value.trim(),
-    contactPerson: document.getElementById('b2bContactPerson').value.trim(),
-    phone: document.getElementById('b2bPhone').value.trim(),
-    email: document.getElementById('b2bEmail').value.trim(),
+    // 1. 단체/기업명 호환
+    company: groupNameVal,
+    groupName: groupNameVal,
+    companyName: groupNameVal,
+
+    // 2. 담당자 성함 호환
+    name: contactPersonVal,
+    contactPerson: contactPersonVal,
+    manager: contactPersonVal,
+
+    // 3. 연락처 & 이메일
+    phone: phoneVal,
+    tel: phoneVal,
+    email: emailVal,
+
+    // 4. 진행 방식 & 출강 지역
+    type: classType,
     classType: classType,
-    location: classType === '외부 출강' ? locationVal : '포항 온다 공방 방문',
-    expectedCount: document.getElementById('b2bExpectedCount').value.trim(),
-    preferredDate: document.getElementById('b2bPreferredDate').value.trim(),
-    budget: document.getElementById('b2bBudget').value.trim() || '협의/미정',
-    message: document.getElementById('b2bMessage').value.trim() || '요청사항 없음',
+    location: locationValFinal,
+
+    // 5. 예상 인원 호환 (count, expectedCount, headcount, people 등)
+    count: countVal,
+    expectedCount: countVal,
+    headcount: countVal,
+    people: countVal,
+
+    // 6. 희망 일시 호환 (date, preferredDate, schedule, dateTime 등)
+    date: dateVal,
+    preferredDate: dateVal,
+    schedule: dateVal,
+    dateTime: dateVal,
+
+    // 7. 예산 & 메시지
+    budget: budgetVal,
+    message: messageVal,
+    memo: messageVal,
+
+    // 8. 서류 첨부
     fileName: b2bSelectedFileData ? b2bSelectedFileData.fileName : null,
     mimeType: b2bSelectedFileData ? b2bSelectedFileData.mimeType : null,
     fileData: b2bSelectedFileData ? b2bSelectedFileData.fileData : null,
