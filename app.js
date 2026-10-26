@@ -1548,7 +1548,7 @@ async function handleB2bFormSubmit(e) {
   const contactPersonVal = document.getElementById('b2bContactPerson').value.trim();
   const phoneVal = document.getElementById('b2bPhone').value.trim();
   const emailVal = document.getElementById('b2bEmail').value.trim();
-  const locationValFinal = classType === '외부 출강' ? locationVal : '포항 온다 공방 방문';
+  const locationValFinal = classType === '외부 출강' ? locationVal : '포항 온다 향방 아틀리에 방문';
   const countVal = document.getElementById('b2bExpectedCount').value.trim();
   const dateVal = document.getElementById('b2bPreferredDate').value.trim();
   const budgetVal = document.getElementById('b2bBudget').value.trim() || '협의/미정';
@@ -1645,7 +1645,7 @@ function showB2bSuccessView(data) {
       <div class="b2b-summary-row"><span>단체 / 기업명</span><strong>${escapeHtml(data.groupName)}</strong></div>
       <div class="b2b-summary-row"><span>담당자 성함/직함</span><strong>${escapeHtml(data.contactPerson)} (${escapeHtml(data.phone)})</strong></div>
       <div class="b2b-summary-row"><span>회신 이메일</span><strong>${escapeHtml(data.email)}</strong></div>
-      <div class="b2b-summary-row"><span>진행 방식</span><strong>${escapeHtml(data.classType)}${data.location && data.location !== '포항 온다 공방 방문' ? ' (' + escapeHtml(data.location) + ')' : ''}</strong></div>
+      <div class="b2b-summary-row"><span>진행 방식</span><strong>${escapeHtml(data.classType)}${data.location && data.location !== '포항 온다 향방 아틀리에 방문' ? ' (' + escapeHtml(data.location) + ')' : ''}</strong></div>
       <div class="b2b-summary-row"><span>예상 인원 / 희망 일시</span><strong>${escapeHtml(data.expectedCount)} / ${escapeHtml(data.preferredDate)}</strong></div>
       ${data.budget && data.budget !== '협의/미정' ? `<div class="b2b-summary-row"><span>예산 범위</span><strong>${escapeHtml(data.budget)}</strong></div>` : ''}
       ${data.fileName ? `<div class="b2b-summary-row"><span>첨부 서류</span><strong>${escapeHtml(data.fileName)}</strong></div>` : ''}
