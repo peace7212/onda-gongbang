@@ -980,6 +980,201 @@
             </div>
           </div>
 
+          
+          <!-- ====================================================================
+               B2B SECTION: 단체 · 기업 견적 문의 (Group & Corporate Inquiry)
+               ==================================================================== -->
+          <div class="b2b-section" id="b2bInquirySection" style="margin-top:60px; margin-bottom:80px; scroll-margin-top:90px;">
+            <div class="b2b-header">
+              <span class="b2b-eyebrow">GROUP & CORPORATE WORKSHOP</span>
+              <h2 class="b2b-title">단체 · 기업 맞춤 견적 문의</h2>
+              <p class="b2b-desc">
+                팀빌딩, 사내 복지, VIP 초청 행사, 학교 및 관공서 힐링 직무연수 등<br />
+                온다 공방만의 자연스럽고 감각적인 조향 클래스로 특별한 쉼과 몰입의 시간을 전합니다.
+              </p>
+            </div>
+
+            <div class="b2b-card">
+              <!-- 폼 입력 영역 -->
+              <form id="b2bInquiryForm" class="b2b-form" onsubmit="handleB2bFormSubmit(event)" novalidate>
+                <!-- 1열: 단체/기업명 & 담당자 성함/직함 -->
+                <div class="b2b-grid b2b-grid--2col">
+                  <div class="b2b-field">
+                    <label class="b2b-label" for="b2bGroupName">
+                      <span class="b2b-label-left">단체 / 기업명 <span class="b2b-req">*</span></span>
+                    </label>
+                    <input type="text" id="b2bGroupName" name="groupName" class="b2b-input" placeholder="예: (주)카카오, 포항시청, 온다초등학교" required />
+                  </div>
+
+                  <div class="b2b-field">
+                    <label class="b2b-label" for="b2bContactPerson">
+                      <span class="b2b-label-left">담당자 성함 / 직함 <span class="b2b-req">*</span></span>
+                    </label>
+                    <input type="text" id="b2bContactPerson" name="contactPerson" class="b2b-input" placeholder="예: 김민지 팀장, 박서준 매니저" required />
+                  </div>
+                </div>
+
+                <!-- 2열: 연락처 & 이메일 -->
+                <div class="b2b-grid b2b-grid--2col">
+                  <div class="b2b-field">
+                    <label class="b2b-label" for="b2bPhone">
+                      <span class="b2b-label-left">연락처 <span class="b2b-req">*</span></span>
+                    </label>
+                    <input type="tel" id="b2bPhone" name="phone" class="b2b-input tabular-nums" placeholder="예: 010-1234-5678" required />
+                  </div>
+
+                  <div class="b2b-field">
+                    <label class="b2b-label" for="b2bEmail">
+                      <span class="b2b-label-left">이메일 주소 <span class="b2b-req">*</span></span>
+                    </label>
+                    <input type="email" id="b2bEmail" name="email" class="b2b-input" placeholder="예: contact@company.com" required />
+                  </div>
+                </div>
+
+                <!-- 3. 진행 방식 선택 (선택형 카드 버튼 2개) -->
+                <div class="b2b-field">
+                  <label class="b2b-label">
+                    <span class="b2b-label-left">진행 방식 <span class="b2b-req">*</span></span>
+                  </label>
+                  <div class="b2b-type-selector" role="radiogroup" aria-label="진행 방식">
+                    <label class="b2b-type-btn active" id="typeOptionAtelier" onclick="handleClassTypeChange('공방 방문 클래스')">
+                      <input type="radio" name="classType" value="공방 방문 클래스" checked />
+                      <div class="b2b-type-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                      </div>
+                      <div class="b2b-type-content">
+                        <span class="b2b-type-title">공방 방문 클래스</span>
+                        <span class="b2b-type-sub">포항 영일대 온다 아틀리에 단독 대관 및 프라이빗 진행</span>
+                      </div>
+                    </label>
+
+                    <label class="b2b-type-btn" id="typeOptionOutreach" onclick="handleClassTypeChange('외부 출강')">
+                      <input type="radio" name="classType" value="외부 출강" />
+                      <div class="b2b-type-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                      </div>
+                      <div class="b2b-type-content">
+                        <span class="b2b-type-title">외부 출강</span>
+                        <span class="b2b-type-sub">기업 회의실, 연수원, 학교 등 전문 조향사가 현장 출강</span>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- 4. 출강 희망 지역 (외부 출강 선택 시 입력 가능) -->
+                <div class="b2b-field" id="b2bLocationField">
+                  <label class="b2b-label" for="b2bLocation">
+                    <span class="b2b-label-left">출강 희망 지역</span>
+                    <span class="b2b-opt-tag" id="b2bLocationTag">공방 방문</span>
+                  </label>
+                  <input type="text" id="b2bLocation" name="location" class="b2b-input" placeholder="포항 영일대 해안로 공방 아틀리에에서 진행됩니다." disabled />
+                  <p class="b2b-hint" id="b2bLocationHint">공방 방문 클래스는 포항 영일대 온다 향방 전용 아틀리에에서 쾌적하게 진행됩니다.</p>
+                </div>
+
+                <!-- 5열: 예상 인원 & 희망 일시 & 예산 범위 -->
+                <div class="b2b-grid b2b-grid--3col">
+                  <div class="b2b-field">
+                    <label class="b2b-label" for="b2bExpectedCount">
+                      <span class="b2b-label-left">예상 인원 <span class="b2b-req">*</span></span>
+                    </label>
+                    <input type="text" id="b2bExpectedCount" name="expectedCount" class="b2b-input" placeholder="예: 25명 (또는 20~30명)" required />
+                  </div>
+
+                  <div class="b2b-field">
+                    <label class="b2b-label" for="b2bPreferredDate">
+                      <span class="b2b-label-left">희망 일시 <span class="b2b-req">*</span></span>
+                    </label>
+                    <input type="text" id="b2bPreferredDate" name="preferredDate" class="b2b-input" placeholder="예: 2026년 11월 20일 오후 2시" required />
+                  </div>
+
+                  <div class="b2b-field">
+                    <label class="b2b-label" for="b2bBudget">
+                      <span class="b2b-label-left">예산 범위</span>
+                      <span class="b2b-opt-tag">선택</span>
+                    </label>
+                    <input type="text" id="b2bBudget" name="budget" class="b2b-input" placeholder="예: 1인 5~7만원선 / 총 150만원" />
+                  </div>
+                </div>
+
+                <!-- 6. 기타 문의 및 요청사항 -->
+                <div class="b2b-field">
+                  <label class="b2b-label" for="b2bMessage">
+                    <span class="b2b-label-left">기타 문의 및 요청사항</span>
+                    <span class="b2b-opt-tag">선택</span>
+                  </label>
+                  <textarea id="b2bMessage" name="message" class="b2b-textarea" rows="4" placeholder="행사 목적(사내 힐링, 팀빌딩, VIP 선물 등), 선호하시는 품목(시그니처 향수 50ml, 디퓨저, 룸스프레이), 필요 서류 등 편하게 적어주시면 견적서에 반영해 드립니다."></textarea>
+                </div>
+
+                <!-- 7. 서류 첨부 영역 -->
+                <div class="b2b-field">
+                  <label class="b2b-label">
+                    <span class="b2b-label-left">서류 첨부</span>
+                    <span class="b2b-opt-tag">선택</span>
+                  </label>
+                  <p class="b2b-file-guide">사업자등록증, 행사 기획안, 공문 등의 서류를 첨부해 주세요 (PDF, 이미지, HWP / 최대 10MB)</p>
+                  
+                  <div class="b2b-dropzone" id="b2bDropzone" onclick="document.getElementById('b2bFileInput').click()">
+                    <input type="file" id="b2bFileInput" style="display:none;" accept=".pdf,.png,.jpg,.jpeg,.hwp,.hwpx,.doc,.docx,.xls,.xlsx,.zip" onchange="handleB2bFileSelect(this)" />
+                    
+                    <div class="b2b-dropzone__inner" id="b2bDropzoneInner">
+                      <div class="b2b-dropzone__icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                      </div>
+                      <p class="b2b-dropzone__text">클릭하여 서류를 선택하거나 파일을 이곳으로 끌어다 놓으세요.</p>
+                      <span class="b2b-dropzone__sub">PDF, PNG, JPG, HWP, WORD 파일 지원 (최대 10MB)</span>
+                    </div>
+
+                    <!-- 선택된 파일 칩 UI (취소 'X' 버튼 제공) -->
+                    <div class="b2b-selected-file" id="b2bSelectedFile" style="display:none;" onclick="event.stopPropagation()">
+                      <div class="b2b-selected-file__info">
+                        <span class="b2b-selected-file__ext" id="b2bFileExtBadge">PDF</span>
+                        <div>
+                          <div class="b2b-selected-file__name" id="b2bFileName">선택된 파일.pdf</div>
+                          <div class="b2b-selected-file__size tabular-nums" id="b2bFileSize">0 KB</div>
+                        </div>
+                      </div>
+                      <button type="button" class="b2b-selected-file__remove" onclick="removeB2bFile(event)" aria-label="첨부파일 삭제" title="첨부파일 취소">&times;</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 개인정보 수집 안내 -->
+                <p class="b2b-privacy-note">
+                  * 작성해 주신 정보 및 첨부 서류는 온다 공방의 맞춤 견적서 산출 및 상담 회신 용도로만 안전하게 활용됩니다.
+                </p>
+
+                <!-- 전송 버튼 및 로딩 인디케이터 -->
+                <div class="b2b-submit-wrap">
+                  <button type="submit" id="b2bSubmitBtn" class="b2b-submit-btn">
+                    <span class="b2b-btn-text">견적 문의 및 서류 전송하기 &rarr;</span>
+                    <span class="b2b-btn-loader" style="display:none;">
+                      <span class="b2b-spinner"></span>
+                      견적 문의 및 서류를 전송 중입니다...
+                    </span>
+                  </button>
+                </div>
+              </form>
+
+              <!-- 전송 완료 시: 화면 전환 없이 폼 위치에 부드러운 애니메이션과 함께 접수 완료 카드 노출 -->
+              <div id="b2bSuccessCard" class="b2b-success-card" style="display:none;">
+                <div class="b2b-success-icon">
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <span class="b2b-eyebrow" style="color:var(--color-sage-deep, #6E7B6E);">INQUIRY SUBMITTED</span>
+                <h3 class="b2b-success-title">견적 문의가 정상 접수되었습니다</h3>
+                <p class="b2b-success-message">
+                  견적 문의 및 서류가 정상 접수되었습니다. 남겨주신 메일로 확인 메일이 발송되었으며, 영업일 기준 24시간 이내에 상세 견적을 안내해 드리겠습니다.
+                </p>
+                <div class="b2b-success-summary" id="b2bSuccessSummary">
+                  <!-- JS로 접수 내역 요약 주입 -->
+                </div>
+                <button type="button" class="b2b-reset-btn" onclick="resetB2bForm()">
+                  새로운 견적 문의 작성하기
+                </button>
+              </div>
+            </div>
+          </div>
+
           <!-- FAQ Section -->
           <div style="max-width:880px; margin:0 auto;">
             <div style="text-align:center; margin-bottom:32px;">

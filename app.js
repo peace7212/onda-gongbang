@@ -1170,7 +1170,12 @@ function cancelReservation(idx) {
 
 function openGroupInquiryModal() {
   navigateTo('visit');
-  showToast('기업 · 학교 · 단체 워크숍 견적 문의 폼으로 이동했습니다.');
+  setTimeout(() => {
+    const el = document.getElementById('b2bInquirySection');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 120);
 }
 
 function copyStudioAddress() {
@@ -1343,5 +1348,292 @@ document.addEventListener('DOMContentLoaded', () => {
   updateBadgesAndDrawers();
   initOndaWaveCanvas();
   initHeroAutoSlider();
+  initB2bDragAndDrop();
 });
 
+
+
+/* ==========================================================================
+   B2B GROUP & CORPORATE INQUIRY FORM LOGIC (단체 · 기업 견적 문의 로직)
+   ========================================================================== */
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxvfGIuM_zr3dAxgptOQrqyxqQ1HuZU5iwjhbPNmAROwE5HvKAPI-MLZSZU1GbN1d1v/exec";
+
+// 서류 첨부 파일 데이터 관리
+let b2bSelectedFileData = null;
+
+// 파일 크기 가독 포맷 (KB, MB)
+function formatB2bFileSize(bytes) {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+}
+
+// 5. 진행 방식 변경 핸들러
+function handleClassTypeChange(type) {
+  const locInput = document.getElementById('b2bLocation');
+  const locTag = document.getElementById('b2bLocationTag');
+  const locHint = document.getElementById('b2bLocationHint');
+  const optAtelier = document.getElementById('typeOptionAtelier');
+  const optOutreach = document.getElementById('typeOptionOutreach');
+
+  if (type === '외부 출강') {
+    if (optAtelier) optAtelier.classList.remove('active');
+    if (optOutreach) optOutreach.classList.add('active');
+    if (locInput) {
+      locInput.disabled = false;
+      locInput.required = true;
+      locInput.placeholder = "출강을 희망하시는 지역/장소를 입력해 주세요 (예: 서울 강남구 삼성동 본사 교육장)";
+      locInput.focus();
+    }
+    if (locTag) {
+      locTag.textContent = "필수 입력";
+      locTag.style.color = "var(--color-danger, #B84A39)";
+    }
+    if (locHint) {
+      locHint.textContent = "전문 조향사가 실습 재료 및 도구를 구비하여 방문합니다. 상세 주소 또는 지역명을 적어주세요.";
+    }
+  } else {
+    if (optAtelier) optAtelier.classList.add('active');
+    if (optOutreach) optOutreach.classList.remove('active');
+    if (locInput) {
+      locInput.disabled = true;
+      locInput.required = false;
+      locInput.value = "";
+      locInput.placeholder = "포항 영일대 해안로 공방 아틀리에에서 진행됩니다.";
+    }
+    if (locTag) {
+      locTag.textContent = "공방 방문";
+      locTag.style.color = "var(--text-muted, #7C8794)";
+    }
+    if (locHint) {
+      locHint.textContent = "공방 방문 클래스는 포항 영일대 온다 향방 전용 아틀리에에서 쾌적하게 진행됩니다.";
+    }
+  }
+}
+
+// 11. 서류 첨부 파일 선택 핸들러
+function handleB2bFileSelect(input) {
+  const file = input.files && input.files[0];
+  if (!file) return;
+
+  // 10MB (10 * 1024 * 1024 bytes) 용량 초과 체크
+  const MAX_SIZE = 10 * 1024 * 1024;
+  if (file.size > MAX_SIZE) {
+    alert("첨부파일 용량이 10MB를 초과하여 등록할 수 없습니다.\n(선택하신 파일: " + (file.size / (1024 * 1024)).toFixed(1) + "MB)");
+    input.value = "";
+    removeB2bFile();
+    return;
+  }
+
+  // FileReader를 사용해 Base64 문자열로 인코딩
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const rawData = e.target.result;
+    // data:application/pdf;base64,... 에서 순수 base64 데이터만 분리
+    const base64Data = rawData.indexOf(',') > -1 ? rawData.split(',')[1] : rawData;
+    
+    b2bSelectedFileData = {
+      fileName: file.name,
+      mimeType: file.type || 'application/octet-stream',
+      fileData: base64Data,
+      sizeFormatted: formatB2bFileSize(file.size)
+    };
+
+    updateB2bFileUI();
+  };
+
+  reader.onerror = function() {
+    alert("파일을 읽는 중 오류가 발생했습니다. 다시 시도해 주세요.");
+    removeB2bFile();
+  };
+
+  reader.readAsDataURL(file);
+}
+
+// 파일 선택 UI 갱신
+function updateB2bFileUI() {
+  const dropInner = document.getElementById('b2bDropzoneInner');
+  const selectedBox = document.getElementById('b2bSelectedFile');
+  const nameEl = document.getElementById('b2bFileName');
+  const sizeEl = document.getElementById('b2bFileSize');
+  const extBadge = document.getElementById('b2bFileExtBadge');
+
+  if (b2bSelectedFileData) {
+    if (dropInner) dropInner.style.display = 'none';
+    if (selectedBox) selectedBox.style.display = 'flex';
+    if (nameEl) nameEl.textContent = b2bSelectedFileData.fileName;
+    if (sizeEl) sizeEl.textContent = b2bSelectedFileData.sizeFormatted;
+    if (extBadge) {
+      const ext = b2bSelectedFileData.fileName.split('.').pop().toUpperCase();
+      extBadge.textContent = ext.length <= 4 ? ext : 'FILE';
+    }
+  } else {
+    if (dropInner) dropInner.style.display = 'block';
+    if (selectedBox) selectedBox.style.display = 'none';
+    const fileInput = document.getElementById('b2bFileInput');
+    if (fileInput) fileInput.value = '';
+  }
+}
+
+// 첨부파일 취소('X')
+function removeB2bFile(e) {
+  if (e) e.stopPropagation();
+  b2bSelectedFileData = null;
+  updateB2bFileUI();
+}
+
+// 드래그 앤 드롭 초기화
+function initB2bDragAndDrop() {
+  const dropzone = document.getElementById('b2bDropzone');
+  if (!dropzone) return;
+
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropzone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropzone.classList.add('dragover');
+    }, false);
+  });
+
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropzone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropzone.classList.remove('dragover');
+    }, false);
+  });
+
+  dropzone.addEventListener('drop', (e) => {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    if (files && files.length > 0) {
+      const fileInput = document.getElementById('b2bFileInput');
+      if (fileInput) {
+        fileInput.files = files;
+        handleB2bFileSelect(fileInput);
+      }
+    }
+  });
+}
+
+// 폼 전송 핸들러
+async function handleB2bFormSubmit(e) {
+  e.preventDefault();
+  const form = document.getElementById('b2bInquiryForm');
+  if (!form) return;
+
+  // 유효성 체크
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+
+  const submitBtn = document.getElementById('b2bSubmitBtn');
+  const btnText = submitBtn.querySelector('.b2b-btn-text');
+  const btnLoader = submitBtn.querySelector('.b2b-btn-loader');
+
+  // 버튼 비활성화 및 로딩 인디케이터 표시
+  submitBtn.disabled = true;
+  if (btnText) btnText.style.display = 'none';
+  if (btnLoader) btnLoader.style.display = 'inline-flex';
+
+  // 폼 입력값 수집
+  const classTypeInput = form.querySelector('input[name="classType"]:checked');
+  const classType = classTypeInput ? classTypeInput.value : '공방 방문 클래스';
+  const locationVal = document.getElementById('b2bLocation') ? document.getElementById('b2bLocation').value.trim() : '';
+
+  const payload = {
+    groupName: document.getElementById('b2bGroupName').value.trim(),
+    contactPerson: document.getElementById('b2bContactPerson').value.trim(),
+    phone: document.getElementById('b2bPhone').value.trim(),
+    email: document.getElementById('b2bEmail').value.trim(),
+    classType: classType,
+    location: classType === '외부 출강' ? locationVal : '포항 온다 공방 방문',
+    expectedCount: document.getElementById('b2bExpectedCount').value.trim(),
+    preferredDate: document.getElementById('b2bPreferredDate').value.trim(),
+    budget: document.getElementById('b2bBudget').value.trim() || '협의/미정',
+    message: document.getElementById('b2bMessage').value.trim() || '요청사항 없음',
+    fileName: b2bSelectedFileData ? b2bSelectedFileData.fileName : null,
+    mimeType: b2bSelectedFileData ? b2bSelectedFileData.mimeType : null,
+    fileData: b2bSelectedFileData ? b2bSelectedFileData.fileData : null,
+    submittedAt: new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })
+  };
+
+  try {
+    // Google Apps Script Web App으로 POST 전송
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    // 전송 완료 시: 화면 전환 없이 폼 위치에 부드러운 애니메이션과 함께 접수 완료 카드 노출
+    showB2bSuccessView(payload);
+  } catch (err) {
+    console.error('견적 문의 전송 에러:', err);
+    alert('견적 문의 전송 중 일시적인 네트워크 오류가 발생했습니다.\n다시 시도해 주시거나 카카오톡 채널로 문의해 주세요.');
+    submitBtn.disabled = false;
+    if (btnText) btnText.style.display = 'inline-block';
+    if (btnLoader) btnLoader.style.display = 'none';
+  }
+}
+
+// 접수 완료 카드 노출
+function showB2bSuccessView(data) {
+  const form = document.getElementById('b2bInquiryForm');
+  const successCard = document.getElementById('b2bSuccessCard');
+  const summary = document.getElementById('b2bSuccessSummary');
+
+  if (summary) {
+    summary.innerHTML = `
+      <div class="b2b-summary-row"><span>단체 / 기업명</span><strong>${escapeHtml(data.groupName)}</strong></div>
+      <div class="b2b-summary-row"><span>담당자 성함/직함</span><strong>${escapeHtml(data.contactPerson)} (${escapeHtml(data.phone)})</strong></div>
+      <div class="b2b-summary-row"><span>회신 이메일</span><strong>${escapeHtml(data.email)}</strong></div>
+      <div class="b2b-summary-row"><span>진행 방식</span><strong>${escapeHtml(data.classType)}${data.location && data.location !== '포항 온다 공방 방문' ? ' (' + escapeHtml(data.location) + ')' : ''}</strong></div>
+      <div class="b2b-summary-row"><span>예상 인원 / 희망 일시</span><strong>${escapeHtml(data.expectedCount)} / ${escapeHtml(data.preferredDate)}</strong></div>
+      ${data.budget && data.budget !== '협의/미정' ? `<div class="b2b-summary-row"><span>예산 범위</span><strong>${escapeHtml(data.budget)}</strong></div>` : ''}
+      ${data.fileName ? `<div class="b2b-summary-row"><span>첨부 서류</span><strong>${escapeHtml(data.fileName)}</strong></div>` : ''}
+    `;
+  }
+
+  if (form) form.style.display = 'none';
+  if (successCard) {
+    successCard.style.display = 'block';
+    successCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+// 새로운 문의 작성하기 (초기화)
+function resetB2bForm() {
+  const form = document.getElementById('b2bInquiryForm');
+  const successCard = document.getElementById('b2bSuccessCard');
+  const submitBtn = document.getElementById('b2bSubmitBtn');
+  const btnText = submitBtn ? submitBtn.querySelector('.b2b-btn-text') : null;
+  const btnLoader = submitBtn ? submitBtn.querySelector('.b2b-btn-loader') : null;
+
+  if (form) {
+    form.reset();
+    form.style.display = 'block';
+  }
+  if (successCard) {
+    successCard.style.display = 'none';
+  }
+  if (submitBtn) {
+    submitBtn.disabled = false;
+    if (btnText) btnText.style.display = 'inline-block';
+    if (btnLoader) btnLoader.style.display = 'none';
+  }
+  
+  removeB2bFile();
+  handleClassTypeChange('공방 방문 클래스');
+
+  const section = document.getElementById('b2bInquirySection');
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
