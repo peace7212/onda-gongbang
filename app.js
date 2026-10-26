@@ -1581,11 +1581,24 @@ async function handleB2bFormSubmit(e) {
     headcount: countVal,
     people: countVal,
 
-    // 6. 희망 일시 호환 (date, preferredDate, schedule, dateTime 등)
+    // 6. 희망 일시 호환 (모든 변형 총망라)
     date: dateVal,
     preferredDate: dateVal,
-    schedule: dateVal,
+    preferred_date: dateVal,
+    desiredDate: dateVal,
+    desired_date: dateVal,
+    hopeDate: dateVal,
+    datetime: dateVal,
     dateTime: dateVal,
+    schedule: dateVal,
+    scheduleDate: dateVal,
+    eventDate: dateVal,
+    time: dateVal,
+    day: dateVal,
+    '희망일시': dateVal,
+    '희망 일시': dateVal,
+    '일시': dateVal,
+    '날짜': dateVal,
 
     // 7. 예산 & 메시지
     budget: budgetVal,
