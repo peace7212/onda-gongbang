@@ -1635,6 +1635,18 @@ async function handleB2bFormSubmit(e) {
 }
 
 // 접수 완료 카드 노출
+
+// HTML 특수문자 이스케이프 헬퍼 함수
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 function showB2bSuccessView(data) {
   const form = document.getElementById('b2bInquiryForm');
   const successCard = document.getElementById('b2bSuccessCard');
